@@ -15,7 +15,7 @@ class Player {
     this.frameCount = 0;
     this.currentLoopIndex = 0;
   }
-  drawPlayer= () => {
+  drawPlayer= (levelCanvasCtx) => {
     this.keepMoving();
     this.getPlayerImage();
     levelCanvasCtx.drawImage(this.player, this.positionX, this.positionY, this.sizeX, this.sizeY);
@@ -69,7 +69,7 @@ class Player {
       this.positionY -= 10.0;
     }
   }
-  movePlayer = (move) => {
+  movePlayer = (move, walls, boxes) => {
     this.direction = move;
     if (Math.abs(this.newPosition.x - this.positionX) < this.sizeX && Math.abs(this.newPosition.y - this.positionY) < this.sizeY) {
       switch (move) {
@@ -98,11 +98,11 @@ class Player {
             }
             break;
       }
-      this.canMovePlayer(this.direction);
+      this.canMovePlayer(this.direction, walls, boxes);
     }
   }
 
-  canMovePlayer = (direction) => {
+  canMovePlayer = (direction, walls, boxes) => {
 
     // wall slam
     walls.forEach((wall) => {

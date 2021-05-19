@@ -1,7 +1,8 @@
 class Camera {
-  constructor() {
-    this.camPosXOffset = Math.floor(player.positionX / canvas.width);
-    this.camPosYOffset = Math.floor(player.positionY / canvas.height);
+  constructor(level) {
+    this.level = level
+    this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
+    this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
     this.newSceneX = this.camPosXOffset * canvas.width;
     this.newSceneY = this.camPosYOffset * canvas.height;
     this.camPosX = this.newSceneX;
@@ -17,8 +18,8 @@ class Camera {
     this.camPosY = - this.yDrag + this.newSceneY;
     var lastOffsetX = this.camPosXOffset;
     var lastOffsetY = this.camPosYOffset;
-    this.camPosXOffset = Math.floor(player.positionX / canvas.width);
-    this.camPosYOffset = Math.floor(player.positionY / canvas.height);
+    this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
+    this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
     if (lastOffsetX !== this.camPosXOffset){
       if (lastOffsetX < this.camPosXOffset) {
         this.changeScene = "right"
@@ -81,7 +82,7 @@ class Camera {
       }
     }
     if (this.changeScene === "up"){
-      if (camPosY > this.camPosYOffset * canvas.height){
+      if (this.camPosY > this.camPosYOffset * canvas.height){
         this.newSceneY -= 25;
       } else {
         this.newSceneY = this.camPosYOffset * canvas.height

@@ -6,11 +6,10 @@ class Cross {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
   }
-  drawCross = () => {
+  drawCross = (levelCanvasCtx) => {
     var cross = document.getElementById("cross");
-    if (this.positionX === player.positionX && this.positionY === player.positionY){
+    if (this.positionX === level.player.positionX && this.positionY === level.player.positionY){
       cross = document.getElementById("cross-stepped");
-      console.log("hello")
     }
     levelCanvasCtx.drawImage(cross, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }

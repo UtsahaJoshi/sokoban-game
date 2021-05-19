@@ -7,8 +7,8 @@ class Wall {
     this.sizeY = sizeY;
     this.wall = document.getElementById("pillar-wall");
   }
-  drawWall = () => {
-    walls.forEach((value)=>{
+  drawWall = (levelCanvasCtx) => {
+    level.walls.forEach((value)=>{
       if (value.positionX === this.positionX && value.positionY === this.positionY + this.sizeY){
         this.wall = document.getElementById("normal-wall")
       }

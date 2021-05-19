@@ -14,9 +14,9 @@ class Box {
     this.isPush = null;
   }
 
-  drawBox = () => {
+  drawBox = (levelCanvasCtx) => {
     var box = document.getElementById("box");
-    if (player.direction !== this.isPush) {
+    if (level.player.direction !== this.isPush) {
       this.isPush = null;
     } else {
       this.canMoveBox(this.direction);
@@ -61,12 +61,10 @@ class Box {
             }
             break;
           case "up":
-            console.log("move from", this.newPosition)
             this.newPosition = {
               x: this.newPosition.x,
               y: this.newPosition.y - this.sizeY
             }
-            console.log("move to", this.newPosition)
             break;
           case "down":
             this.newPosition = {
@@ -80,31 +78,31 @@ class Box {
 
   canMoveBox = (direction) => {
     if (this.isPush == "right"){
-      this.newPosition.x = player.newPosition.x + 80
-      this.newPosition.y = player.newPosition.y
+      this.newPosition.x = level.player.newPosition.x + 80
+      this.newPosition.y = level.player.newPosition.y
     }
     if (this.isPush == "left"){
-      this.newPosition.x = player.newPosition.x - 80
-      this.newPosition.y = player.newPosition.y
+      this.newPosition.x = level.player.newPosition.x - 80
+      this.newPosition.y = level.player.newPosition.y
     }
     if (this.isPush == "up"){
-      this.newPosition.x = player.newPosition.x
-      this.newPosition.y = player.newPosition.y - 80
+      this.newPosition.x = level.player.newPosition.x
+      this.newPosition.y = level.player.newPosition.y - 80
     }
     if (this.isPush == "down"){
-      this.newPosition.x = player.newPosition.x
-      this.newPosition.y = player.newPosition.y + 80
+      this.newPosition.x = level.player.newPosition.x
+      this.newPosition.y = level.player.newPosition.y + 80
     }
-    boxes.forEach((secondBox) => {
+    level.boxes.forEach((secondBox) => {
       if (secondBox.positionX === this.newPosition.x && secondBox.positionY === this.newPosition.y && secondBox.id !== this.id){
         if (direction === "right"){
           this.newPosition = {
             x: this.newPosition.x - this.sizeX,
             y: this.newPosition.y
           }
-          player.newPosition = {
-            x: player.newPosition.x - player.sizeX,
-            y: player.newPosition.y
+          level.player.newPosition = {
+            x: level.player.newPosition.x - level.player.sizeX,
+            y: level.player.newPosition.y
           }
         }
         if (direction === "left"){
@@ -112,21 +110,19 @@ class Box {
             x: this.newPosition.x + this.sizeX,
             y: this.newPosition.y
           }
-          player.newPosition = {
-            x: player.newPosition.x + player.sizeX,
-            y: player.newPosition.y
+          level.player.newPosition = {
+            x: level.player.newPosition.x + level.player.sizeX,
+            y: level.player.newPosition.y
           }
         }
         if (direction === "up"){
-          console.log("cant move to", this.newPosition)
           this.newPosition = {
             x: this.newPosition.x,
             y: this.newPosition.y + this.sizeY
           }
-          console.log("remain at", this.newPosition)
-          player.newPosition = {
-            x: player.newPosition.x,
-            y: player.newPosition.y + player.sizeY
+          level.player.newPosition = {
+            x: level.player.newPosition.x,
+            y: level.player.newPosition.y + level.player.sizeY
           }
         }
         if (direction === "down"){
@@ -134,24 +130,24 @@ class Box {
             x: this.newPosition.x,
             y: this.newPosition.y - this.sizeY
           }
-          player.newPosition = {
-            x: player.newPosition.x,
-            y: player.newPosition.y - player.sizeY
+          level.player.newPosition = {
+            x: level.player.newPosition.x,
+            y: level.player.newPosition.y - level.player.sizeY
           }
         }
       }
     })
 
-    walls.forEach((wall) => {
+    level.walls.forEach((wall) => {
       if (wall.positionX === this.newPosition.x && wall.positionY === this.newPosition.y){
         if (direction === "right"){
           this.newPosition = {
             x: this.newPosition.x - this.sizeX,
             y: this.newPosition.y
           }
-          player.newPosition = {
-            x: player.newPosition.x - player.sizeX,
-            y: player.newPosition.y
+          level.player.newPosition = {
+            x: level.player.newPosition.x - level.player.sizeX,
+            y: level.player.newPosition.y
           }
         }
         if (direction === "left"){
@@ -159,9 +155,9 @@ class Box {
             x: this.newPosition.x + this.sizeX,
             y: this.newPosition.y
           }
-          player.newPosition = {
-            x: player.newPosition.x + player.sizeX,
-            y: player.newPosition.y
+          level.player.newPosition = {
+            x: level.player.newPosition.x + level.player.sizeX,
+            y: level.player.newPosition.y
           }
         }
         if (direction === "up"){
@@ -169,9 +165,9 @@ class Box {
             x: this.newPosition.x,
             y: this.newPosition.y + this.sizeY
           }
-          player.newPosition = {
-            x: player.newPosition.x,
-            y: player.newPosition.y + player.sizeY
+          level.player.newPosition = {
+            x: level.player.newPosition.x,
+            y: level.player.newPosition.y + level.player.sizeY
           }
         }
         if (direction === "down"){
@@ -179,9 +175,9 @@ class Box {
             x: this.newPosition.x,
             y: this.newPosition.y - this.sizeY
           }
-          player.newPosition = {
-            x: player.newPosition.x,
-            y: player.newPosition.y - player.sizeY
+          level.player.newPosition = {
+            x: level.player.newPosition.x,
+            y: level.player.newPosition.y - level.player.sizeY
           }
         }
       }
@@ -190,7 +186,7 @@ class Box {
 
   checkForSolvedBox = () => {
     this.solved = false;
-    crosses.forEach((cross)=>{
+    level.crosses.forEach((cross)=>{
       if (this.positionX === cross.positionX && this.positionY === cross.positionY){
         this.solved = true;
       }

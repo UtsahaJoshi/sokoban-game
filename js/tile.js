@@ -5,9 +5,8 @@ class Tile {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
-    console.log('created tile');
   }
-  drawTile= () => {
+  drawTile= (levelCanvasCtx) => {
     var tile = document.getElementById("tile");
     levelCanvasCtx.drawImage(tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
