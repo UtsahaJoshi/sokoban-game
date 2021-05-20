@@ -10,3 +10,10 @@ body{
 .image-assets{
   display:none;
 }
+
+@font-face {
+  font-family: 'Soko';
+  font-style: normal;
+  font-weight: 400;
+  src:url(../font/font.woff) format('truetype');
+}

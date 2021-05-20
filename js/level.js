@@ -1,5 +1,5 @@
 class Level{
-  constructor(level){
+  constructor(levelCount){
     this.levelCanvas = document.createElement("canvas");
     this.levelCanvas.width = 6000;
     this.levelCanvas.height = 6000;
@@ -7,29 +7,9 @@ class Level{
 
     this.startingPos = [];
     this.isDragging = false;
-    this.level = [
-      "########",
-      "###===##",
-      "#*+==##",
-      "###=+*###################################",
-      "#*#+===========================@=========#",
-      "#=#=*=###################################",
-      "#+=&++*#",
-      "#===*==#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "#======#",
-      "########"
-    ]
+    this.levelCount = levelCount;
+    this.level = allLevels[levelCount];
+
     this.levelComplete = false;
 
     this.walls = [];
@@ -53,13 +33,17 @@ class Level{
     }
     this.createLevelObjects();
     this.camera = new Camera(this);
+    this.exit = 0 // for quitting
     }
 
     drawLevel = () => {
+      var pause = document.getElementById("pause");
+      ctx.clearRect(0, 0, width, height);
       this.camera.getCamPos();
       this.drawLevelObjects();
       (this.camera.isSnapping || this.camera.changeScene) ? this.camera.snapCameraBackInPosition() : 0;
       ctx.drawImage(this.levelCanvas, this.camera.camPosX, this.camera.camPosY, width, height, 0, 0, width, height);
+      ctx.drawImage(pause, width - 120, 10, 100 , 100 );
       this.checkForLevelComplete();
     }
 
