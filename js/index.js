@@ -6,9 +6,11 @@ canvas.height = height;
 canvas.width = width;
 
 var isDragging = false;
+var startingPos = [];
 
 mainMenu = new MainMenu();
 var level;
+
 
 var drawCanvas = () => {
   resizeScreen();
@@ -28,14 +30,19 @@ requestAnimationFrame(drawCanvas);
 
 window.addEventListener("resize", resizeScreen);
 window.addEventListener("keydown", (e) => {
-  if (level){
+  if (level && !level.paused && !level.levelComplete){
     level.playerControl(e);
   }
 });
 canvas.addEventListener("mousedown", (e) => {
+  if (mainMenu){
+    mainMenu.menuSelection(e);
+  }
   if (level){
     startingPos = [e.pageX, e.pageY]
     isDragging = true;
+    level.pauseClicked(e);
+    level.pauseMenuSelection(e);
   }
 });
 canvas.addEventListener("mouseup", (e) => {
@@ -44,7 +51,12 @@ canvas.addEventListener("mouseup", (e) => {
   }
 });
 canvas.addEventListener("mousemove", (e) => {
+  if (mainMenu){
+    mainMenu.menuSelection(e);
+  }
   if(level) {
-    level.seeMap(e)
+    level.seeMap(e);
+    level.pauseHover(e);
+    level.pauseMenuSelection(e);
   }
 });
