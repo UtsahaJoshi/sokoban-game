@@ -1,6 +1,6 @@
 class Camera {
-  constructor(level) {
-    this.level = level
+  constructor(map) {
+    this.level = map
     this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
     this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
     this.newSceneX = this.camPosXOffset * canvas.width;

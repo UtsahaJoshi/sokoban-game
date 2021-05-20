@@ -4,7 +4,7 @@ body{
   height: 100%;
 }
 #main-canvas{
-  background-color: #ebebeb;
+  background-color: black;
   cursor: pointer;
 }
 .image-assets{

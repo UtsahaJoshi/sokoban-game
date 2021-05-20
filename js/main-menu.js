@@ -124,14 +124,21 @@ class MainMenu{
         ctx.strokeText("< BACK", canvas.width/2 - 110, 650);
       }
     } else {
-      level.drawLevel();
-      if (level.exit == 1){
-        level = null;
+      if (level){
+        level.drawLevel();
+        if (level.exit == 1){
+          level = null;
+        }
+      }
+      if (story){
+        story.drawStory();
       }
     }
   }
 
   menuSelection = (e) => {
+
+    //how to play
     var mousePos = [e.pageX, e.pageY];
     if (this.menuPage === 4 && !level){
       if (mousePos[0]>canvas.width/2 - 170 && mousePos[0]<canvas.width/2 - 50 && mousePos[1] > 625 && mousePos[1] < 655 ){
@@ -144,6 +151,8 @@ class MainMenu{
         this.selection[1][0] = 0;
       }
     }
+
+    //level mode
     if (this.menuPage === 2 && !level){
       var levelCount = 0;
       this.selection[1][1] = 0;
@@ -181,6 +190,7 @@ class MainMenu{
         if (e.type == "mousedown"){
           this.menuPage = 1;
           this.selection = [[0,0,0,0],[0,0],0];
+          level = new Story();
         }
       } else {
         this.selection[0][0] = 0;

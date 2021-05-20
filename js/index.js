@@ -10,6 +10,7 @@ var startingPos = [];
 
 mainMenu = new MainMenu();
 var level;
+var story;
 
 
 var drawCanvas = () => {
@@ -32,6 +33,9 @@ window.addEventListener("resize", resizeScreen);
 window.addEventListener("keydown", (e) => {
   if (level && !level.paused && !level.levelComplete){
     level.playerControl(e);
+  }
+  if (story){
+    story.playerControl(e);
   }
 });
 canvas.addEventListener("mousedown", (e) => {

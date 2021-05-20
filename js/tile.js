@@ -7,7 +7,7 @@ class Tile {
     this.sizeY = sizeY;
   }
   drawTile= (levelCanvasCtx) => {
-    var tile = document.getElementById("tile");
+    var tile = document.getElementById("grass");
     levelCanvasCtx.drawImage(tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
