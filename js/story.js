@@ -1,8 +1,8 @@
 class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = 4500;
-    this.levelCanvas.height = 4500;
+    this.levelCanvas.width = width;
+    this.levelCanvas.height = height;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
     this.isDragging = false;
     this.levelCount = 13;
