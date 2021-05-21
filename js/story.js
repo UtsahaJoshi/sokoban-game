@@ -4,7 +4,6 @@ class Story{
     this.levelCanvas.width = 9000;
     this.levelCanvas.height = 6000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
-    document.body.appendChild(this.levelCanvas)
 
     this.isDragging = false;
     this.levelCount = 13;
