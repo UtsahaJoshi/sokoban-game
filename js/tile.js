@@ -7,7 +7,10 @@ class Tile {
     this.sizeY = sizeY;
   }
   drawTile= (levelCanvasCtx) => {
-    var tile = document.getElementById("grass");
+    var tile = document.getElementById("tile");
+    if (level.levelCount === 13) {
+      tile = document.getElementById("grass");
+    }
     levelCanvasCtx.drawImage(tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }

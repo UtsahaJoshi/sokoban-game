@@ -21,14 +21,14 @@ class Camera {
     this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
     this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
     if (lastOffsetX !== this.camPosXOffset){
-      if (lastOffsetX < this.camPosXOffset) {
+      if (lastOffsetX < this.camPosXOffset){
         this.changeScene = "right"
       } else {
         this.changeScene = "left";
       }
     }
-    if (lastOffsetY !== this.camPosYOffset) {
-      if (lastOffsetY < this.camPosYOffset) {
+    if (lastOffsetY !== this.camPosYOffset){
+      if (lastOffsetY < this.camPosYOffset){
         this.changeScene = "down"
       } else {
         this.changeScene = "up";

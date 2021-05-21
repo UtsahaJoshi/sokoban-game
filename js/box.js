@@ -76,6 +76,48 @@ class Box {
       this.canMoveBox(this.direction);
   }
 
+  collisionCorrection = (direction) => {
+    if (direction === "right"){
+      this.newPosition = {
+        x: this.newPosition.x - this.sizeX,
+        y: this.newPosition.y
+      }
+      level.player.newPosition = {
+        x: level.player.newPosition.x - level.player.sizeX,
+        y: level.player.newPosition.y
+      }
+    }
+    if (direction === "left"){
+      this.newPosition = {
+        x: this.newPosition.x + this.sizeX,
+        y: this.newPosition.y
+      }
+      level.player.newPosition = {
+        x: level.player.newPosition.x + level.player.sizeX,
+        y: level.player.newPosition.y
+      }
+    }
+    if (direction === "up"){
+      this.newPosition = {
+        x: this.newPosition.x,
+        y: this.newPosition.y + this.sizeY
+      }
+      level.player.newPosition = {
+        x: level.player.newPosition.x,
+        y: level.player.newPosition.y + level.player.sizeY
+      }
+    }
+    if (direction === "down"){
+      this.newPosition = {
+        x: this.newPosition.x,
+        y: this.newPosition.y - this.sizeY
+      }
+      level.player.newPosition = {
+        x: level.player.newPosition.x,
+        y: level.player.newPosition.y - level.player.sizeY
+      }
+    }
+  }
   canMoveBox = (direction) => {
     if (this.isPush == "right"){
       this.newPosition.x = level.player.newPosition.x + 80
@@ -95,91 +137,13 @@ class Box {
     }
     level.boxes.forEach((secondBox) => {
       if (secondBox.positionX === this.newPosition.x && secondBox.positionY === this.newPosition.y && secondBox.id !== this.id){
-        if (direction === "right"){
-          this.newPosition = {
-            x: this.newPosition.x - this.sizeX,
-            y: this.newPosition.y
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x - level.player.sizeX,
-            y: level.player.newPosition.y
-          }
-        }
-        if (direction === "left"){
-          this.newPosition = {
-            x: this.newPosition.x + this.sizeX,
-            y: this.newPosition.y
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x + level.player.sizeX,
-            y: level.player.newPosition.y
-          }
-        }
-        if (direction === "up"){
-          this.newPosition = {
-            x: this.newPosition.x,
-            y: this.newPosition.y + this.sizeY
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x,
-            y: level.player.newPosition.y + level.player.sizeY
-          }
-        }
-        if (direction === "down"){
-          this.newPosition = {
-            x: this.newPosition.x,
-            y: this.newPosition.y - this.sizeY
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x,
-            y: level.player.newPosition.y - level.player.sizeY
-          }
-        }
+        this.collisionCorrection(direction);
       }
     })
 
     level.walls.forEach((wall) => {
       if (wall.positionX === this.newPosition.x && wall.positionY === this.newPosition.y){
-        if (direction === "right"){
-          this.newPosition = {
-            x: this.newPosition.x - this.sizeX,
-            y: this.newPosition.y
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x - level.player.sizeX,
-            y: level.player.newPosition.y
-          }
-        }
-        if (direction === "left"){
-          this.newPosition = {
-            x: this.newPosition.x + this.sizeX,
-            y: this.newPosition.y
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x + level.player.sizeX,
-            y: level.player.newPosition.y
-          }
-        }
-        if (direction === "up"){
-          this.newPosition = {
-            x: this.newPosition.x,
-            y: this.newPosition.y + this.sizeY
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x,
-            y: level.player.newPosition.y + level.player.sizeY
-          }
-        }
-        if (direction === "down"){
-          this.newPosition = {
-            x: this.newPosition.x,
-            y: this.newPosition.y - this.sizeY
-          }
-          level.player.newPosition = {
-            x: level.player.newPosition.x,
-            y: level.player.newPosition.y - level.player.sizeY
-          }
-        }
+        this.collisionCorrection(direction);
       }
     })
   }

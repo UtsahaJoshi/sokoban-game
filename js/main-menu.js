@@ -130,9 +130,6 @@ class MainMenu{
           level = null;
         }
       }
-      if (story){
-        story.drawStory();
-      }
     }
   }
 
@@ -190,7 +187,8 @@ class MainMenu{
         if (e.type == "mousedown"){
           this.menuPage = 1;
           this.selection = [[0,0,0,0],[0,0],0];
-          level = new Story();
+          level = JSON.parse(localStorage.getItem("storymode")) || new Story();
+          console.log(level);
         }
       } else {
         this.selection[0][0] = 0;

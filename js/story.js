@@ -1,8 +1,8 @@
 class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = 10000;
-    this.levelCanvas.height = 10000;
+    this.levelCanvas.width = 9000;
+    this.levelCanvas.height = 9000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
 
     this.isDragging = false;
@@ -15,6 +15,15 @@ class Story{
     this.tiles = [];
     this.boxes = [];
     this.crosses = [];
+    this.houses = [];
+    this.berries = [];
+    this.flowers = [];
+    this.flowerPotBig = [];
+    this.flowerPotSmall = [];
+    this.trees = [];
+    this.mushrooms = [];
+    this.ponds = [];
+    this.humans = [];
     this.player;
 
     this.getAndMakePlayer();
@@ -49,7 +58,7 @@ class Story{
       this.camera.getCamPos();
       this.drawLevelObjects();
       (this.camera.isSnapping || this.camera.changeScene) ? this.camera.snapCameraBackInPosition() : 0;
-      ctx.drawImage(this.levelCanvas, this.camera.camPosX, this.camera.camPosY, width, height, 0, 0, width, height);
+      ctx.drawImage(this.levelCanvas, this.player.positionX - canvas.width/2.1, this.player.positionY - canvas.height/2.5, width, height, 0, 0, width, height);
       if (!this.paused){
         if (!this.levelComplete){
           if (this.pauseHovered){
@@ -148,13 +157,34 @@ class Story{
       this.crosses.forEach((value)=>{
         value.drawCross(this.levelCanvasCtx);
       })
-      this.boxes.forEach((value)=>{
-       value.drawBox(this.levelCanvasCtx);
+      this.berries.forEach((value) => {
+        value.drawStuff(this.levelCanvasCtx);
       })
+      this.flowers.forEach((value) => {
+        value.drawStuff(this.levelCanvasCtx);
+      })
+      this.mushrooms.forEach((value) => {
+        value.drawStuff(this.levelCanvasCtx);
+      })
+      this.ponds.forEach((value) => {
+        value.drawPond(this.levelCanvasCtx);
+      })
+      this.boxes.forEach((value)=>{
+        value.drawBox(this.levelCanvasCtx);
+       })
+       this.humans.forEach((value)=>{
+        value.drawHuman(this.levelCanvasCtx);
+       })
       this.player.drawPlayer(this.levelCanvasCtx);
       this.walls.forEach((value)=>{
         value.drawWall(this.levelCanvasCtx);
       })
+      this.trees.forEach((value) => {
+        value.drawTree(this.levelCanvasCtx);
+      })
+      this.houses.forEach((value) => {
+        value.drawHouse(this.levelCanvasCtx);
+      } )
     }
 
     createLevelObjects = () => {
@@ -175,13 +205,63 @@ class Story{
             case "@":
               this.player = new Player(positionX, positionY, sizeX, sizeY);
               break;
-
             case "*":
               this.crosses.push(new Cross(this.crosses.length, positionX, positionY, sizeX, sizeY));
               break;
             case "&":
               this.crosses.push(new Cross(this.crosses.length, positionX, positionY, sizeX, sizeY));
               this.boxes.push(new Box(this.boxes.length, positionX, positionY, sizeX, sizeY));
+              break;
+            case "R":
+              this.houses.push(new House(this.houses.length, "red", positionX, positionY, sizeX*5, sizeY*5));
+              break;
+            case "B":
+              this.houses.push(new House(this.houses.length, "blue", positionX, positionY, sizeX*5, sizeY*5));
+              break;
+            case "G":
+              this.houses.push(new House(this.houses.length, "green", positionX, positionY, sizeX*5, sizeY*5));
+              break;
+            case "b":
+              this.berries.push(new noCollisionStuffs(this.berries.length, "berries", positionX, positionY, sizeX, sizeY));
+              break;
+            case "f":
+              this.flowers.push(new noCollisionStuffs(this.flowers.length, "flowers", positionX, positionY, sizeX, sizeY));
+              break;
+            case "m":
+              this.mushrooms.push(new noCollisionStuffs(this.mushrooms.length, "mushroom", positionX, positionY, sizeX, sizeY));
+              break;
+            case "t":
+              this.trees.push(new Tree(this.trees.length, "single", positionX, positionY, sizeX, sizeY));
+              break;
+            case "T":
+              this.trees.push(new Tree(this.trees.length, "group", positionX, positionY, sizeX, sizeY));
+              break;
+            case "P":
+              this.ponds.push(new Pond(this.ponds.length, positionX, positionY, sizeX*3, sizeY*3));
+              break;
+            case "/":
+              this.humans.push(new Human(this.humans.length, "male-dark", positionX, positionY, sizeX, sizeY))
+              break;
+            case "!":
+              this.humans.push(new Human(this.humans.length, "male-pale", positionX, positionY, sizeX, sizeY))
+              break;
+            case "|":
+              this.humans.push(new Human(this.humans.length, "female-dark", positionX, positionY, sizeX, sizeY))
+              break;
+            case "?":
+              this.humans.push(new Human(this.humans.length, "female-pale", positionX, positionY, sizeX, sizeY))
+              break;
+            case "<":
+              this.humans.push(new Human(this.humans.length, "kid1", positionX, positionY, sizeX, sizeY))
+              break;
+            case ">":
+              this.humans.push(new Human(this.humans.length, "kid2", positionX, positionY, sizeX, sizeY))
+              break;
+            case "^":
+              this.humans.push(new Human(this.humans.length, "kid3", positionX, positionY, sizeX, sizeY))
+              break;
+            case "-":
+              this.humans.push(new Human(this.humans.length, "soldier", positionX, positionY, sizeX, sizeY))
               break;
           }
         }
@@ -209,7 +289,7 @@ class Story{
           default:
             break;
         }
-        this.player.movePlayer(direction, this.walls, this.boxes);
+        this.player.movePlayer(direction);
       }
     }
     pauseClicked = (e) => {

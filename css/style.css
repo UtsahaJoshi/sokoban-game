@@ -4,7 +4,7 @@ body{
   height: 100%;
 }
 #main-canvas{
-  background-color: black;
+  background-image: url('../images/Ground/grass.png');
   cursor: pointer;
 }
 .image-assets{
