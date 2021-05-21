@@ -32,16 +32,16 @@ class Box {
 
   keepPushing = () =>{
     if(this.positionX < this.newPosition.x) {
-      this.positionX += 10.0;
+      this.positionX += 5.0;
     }
     if(this.positionX > this.newPosition.x) {
-      this.positionX -= 10.0;
+      this.positionX -= 5.0;
     }
     if(this.positionY < this.newPosition.y) {
-      this.positionY += 10.0;
+      this.positionY += 5.0;
     }
     if(this.positionY > this.newPosition.y) {
-      this.positionY -= 10.0;
+      this.positionY -= 5.0;
     }
   }
 
@@ -120,20 +120,20 @@ class Box {
   }
   canMoveBox = (direction) => {
     if (this.isPush == "right"){
-      this.newPosition.x = level.player.newPosition.x + 80
+      this.newPosition.x = level.player.newPosition.x + 40
       this.newPosition.y = level.player.newPosition.y
     }
     if (this.isPush == "left"){
-      this.newPosition.x = level.player.newPosition.x - 80
+      this.newPosition.x = level.player.newPosition.x - 40
       this.newPosition.y = level.player.newPosition.y
     }
     if (this.isPush == "up"){
       this.newPosition.x = level.player.newPosition.x
-      this.newPosition.y = level.player.newPosition.y - 80
+      this.newPosition.y = level.player.newPosition.y - 40
     }
     if (this.isPush == "down"){
       this.newPosition.x = level.player.newPosition.x
-      this.newPosition.y = level.player.newPosition.y + 80
+      this.newPosition.y = level.player.newPosition.y + 40
     }
     level.boxes.forEach((secondBox) => {
       if (secondBox.positionX === this.newPosition.x && secondBox.positionY === this.newPosition.y && secondBox.id !== this.id){

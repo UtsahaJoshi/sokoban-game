@@ -5,21 +5,21 @@ class MainMenu{
     this.levelInStorage = Number(localStorage.getItem("soko-level-complete")) || 0;
   }
   drawMenu = () => {
-    var logo = document.getElementById("logo");
-    var bg = document.getElementById("menu-background");
-    var face = document.getElementById("face");
-    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(0,0,0,0.7)';
-    ctx.fillRect(width/2-logo.width/4, 150,logo.width/2, 520);
-    ctx.fillStyle = 'rgba(0,0,0,1)';
-    ctx.font = "10px Soko";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText("Small Town", canvas.width/2-120, 190);
-    ctx.drawImage(logo, width/2-logo.width/4, 150,logo.width/2, logo.height/2);
-    ctx.drawImage(face, width/2-160, 165,face.width/2, face.height/2);
-
-    canvas.style.cursor = "default";
     if (!level){
+      var logo = document.getElementById("logo");
+      var bg = document.getElementById("menu-background");
+      var face = document.getElementById("face");
+      ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(0,0,0,0.7)';
+      ctx.fillRect(width/2-logo.width/4, 150,logo.width/2, 520);
+      ctx.fillStyle = 'rgba(0,0,0,1)';
+      ctx.font = "10px Soko";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText("Small Town", canvas.width/2-120, 190);
+      ctx.drawImage(logo, width/2-logo.width/4, 150,logo.width/2, logo.height/2);
+      ctx.drawImage(face, width/2-160, 165,face.width/2, face.height/2);
+  
+      canvas.style.cursor = "default";
       if (this.menuPage === 0){
         ctx.font = "20px Soko";
         ctx.fillStyle = "	#FFD700";

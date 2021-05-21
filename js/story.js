@@ -1,8 +1,8 @@
 class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = 9000;
-    this.levelCanvas.height = 6000;
+    this.levelCanvas.width = 4500;
+    this.levelCanvas.height = 4500;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
     this.isDragging = false;
     this.levelCount = 13;
@@ -39,10 +39,10 @@ class Story{
     getAndMakePlayer = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 80;
-          var positionY =  i * 80;
-          var sizeX = 80;
-          var sizeY = 80;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           switch(this.level[i][j]){
             case "@":
               this.player = new Player(positionX, positionY, sizeX, sizeY);
@@ -152,70 +152,48 @@ class Story{
 
     drawLevelObjects = () => {
       this.tiles.forEach((value)=>{
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawTile(this.levelCanvasCtx);
-        }
       })
       this.crosses.forEach((value)=>{
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawCross(this.levelCanvasCtx);
-        }
       })
       this.berries.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawStuff(this.levelCanvasCtx);
-        }
       })
       this.flowers.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
-          value.drawStuff(this.levelCanvasCtx);
-        }
+          value.drawStuff(this.levelCanvasCtx);  
       })
       this.mushrooms.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawStuff(this.levelCanvasCtx);
-        }
       })
       this.ponds.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawPond(this.levelCanvasCtx);
-        }
       })
       this.boxes.forEach((value)=>{
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawBox(this.levelCanvasCtx);
-        }
        })
       this.player.drawPlayer(this.levelCanvasCtx);
       this.humans.forEach((value)=>{
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawHuman(this.levelCanvasCtx);
-        }
        })
       this.walls.forEach((value)=>{
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawWall(this.levelCanvasCtx);
-        }
       })
       this.houses.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawHouse(this.levelCanvasCtx);
-        }
       } )
       this.trees.forEach((value) => {
-        if (Math.abs(value.positionX - this.player.positionX) <=canvas.width/2 && Math.abs(value.positionY - this.player.positionY) <= canvas.height/2){
           value.drawTree(this.levelCanvasCtx);
-        }
       })
     }
 
     createLevelObjects = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 80;
-          var positionY =  i * 80;
-          var sizeX = 80;
-          var sizeY = 80;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
           switch(this.level[i][j]){
             case "#":

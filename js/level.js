@@ -1,8 +1,8 @@
 class Level{
   constructor(levelCount){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = 6000;
-    this.levelCanvas.height = 6000;
+    this.levelCanvas.width = 2000;
+    this.levelCanvas.height = 2000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
 
     this.isDragging = false;
@@ -29,10 +29,10 @@ class Level{
     getAndMakePlayer = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 80;
-          var positionY =  i * 80;
-          var sizeX = 80;
-          var sizeY = 80;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           switch(this.level[i][j]){
             case "@":
               this.player = new Player(positionX, positionY, sizeX, sizeY);
@@ -175,10 +175,10 @@ class Level{
     createLevelObjects = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 80;
-          var positionY =  i * 80;
-          var sizeX = 80;
-          var sizeY = 80;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
           switch(this.level[i][j]){
             case "#":
