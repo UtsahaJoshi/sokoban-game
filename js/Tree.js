@@ -13,12 +13,12 @@ class Tree {
     var stuffSizeY = this.sizeY*3;
     if (this.type === "single"){
       tree = document.getElementById("tree");
-      this.sizeX = 120;
-      this.sizeY = 120;
+      this.sizeX = 24;
+      this.sizeY = 24;
     } else {
       tree = document.getElementById("trees");
-      this.sizeX = 280;
-      this.sizeY = 160;
+      this.sizeX = 56;
+      this.sizeY = 32;
     }
     canvasCtx.drawImage(tree, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }

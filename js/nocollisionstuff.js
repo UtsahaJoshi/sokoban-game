@@ -16,12 +16,12 @@ class noCollisionStuffs{
       stuff = document.getElementById("berries");
     } else if (this.type === "mushroom") {
       stuff = document.getElementById("mushroom");
-      stuffSizeX = 30;
-      stuffSizeY = 20;
+      stuffSizeX = 6;
+      stuffSizeY = 4;
     } else if (this.type === "flowers"){
       stuff = document.getElementById("flowers");
-      stuffSizeX = 40;
-      stuffSizeY = 20;
+      stuffSizeX = 4;
+      stuffSizeY = 4;
     } else {
       stuff = document.getElementById("path");
     }
