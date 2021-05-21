@@ -1,8 +1,8 @@
 class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = 9000;
-    this.levelCanvas.height = 9000;
+    this.levelCanvas.width = 6000;
+    this.levelCanvas.height = 6000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
 
     this.isDragging = false;
@@ -23,6 +23,7 @@ class Story{
     this.trees = [];
     this.mushrooms = [];
     this.ponds = [];
+    this.paths = [];
     this.humans = [];
     this.player;
 
@@ -172,19 +173,19 @@ class Story{
       this.boxes.forEach((value)=>{
         value.drawBox(this.levelCanvasCtx);
        })
-       this.humans.forEach((value)=>{
+      this.player.drawPlayer(this.levelCanvasCtx);
+      this.humans.forEach((value)=>{
         value.drawHuman(this.levelCanvasCtx);
        })
-      this.player.drawPlayer(this.levelCanvasCtx);
       this.walls.forEach((value)=>{
         value.drawWall(this.levelCanvasCtx);
-      })
-      this.trees.forEach((value) => {
-        value.drawTree(this.levelCanvasCtx);
       })
       this.houses.forEach((value) => {
         value.drawHouse(this.levelCanvasCtx);
       } )
+      this.trees.forEach((value) => {
+        value.drawTree(this.levelCanvasCtx);
+      })
     }
 
     createLevelObjects = () => {
@@ -263,6 +264,8 @@ class Story{
             case "-":
               this.humans.push(new Human(this.humans.length, "soldier", positionX, positionY, sizeX, sizeY))
               break;
+            case " ":
+              this.mushrooms.push(new noCollisionStuffs(this.mushrooms.length, "path", positionX, positionY, sizeX, sizeY));
           }
         }
       }

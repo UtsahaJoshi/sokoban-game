@@ -26,6 +26,8 @@ class Human {
     } else if (this.type === "soldier") {
       human = document.getElementById("human8");
     }
+    var question = document.getElementById("question");
+    canvasCtx.drawImage(question, this.positionX, this.positionY - 80, this.sizeX, this.sizeY);
     canvasCtx.drawImage(human, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }

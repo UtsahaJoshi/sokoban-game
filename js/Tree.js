@@ -17,8 +17,8 @@ class Tree {
       this.sizeY = 240;
     } else {
       tree = document.getElementById("trees");
-      this.sizeX = 480;
-      this.sizeY = 240;
+      this.sizeX = 560;
+      this.sizeY = 320;
     }
     canvasCtx.drawImage(tree, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
