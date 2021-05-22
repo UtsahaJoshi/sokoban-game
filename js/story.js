@@ -198,7 +198,7 @@ class Story{
         }
       })
       this.houses.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.6 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.5 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.5) {
           value.drawHouse(this.levelCanvasCtx);
         }
       } )
