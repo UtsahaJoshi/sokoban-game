@@ -4,7 +4,6 @@ class Story{
     this.levelCanvas.width = 4500;
     this.levelCanvas.height = 3500;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
-    document.body.appendChild(this.levelCanvas)
     this.isDragging = false;
     this.levelCount = 13;
     this.level = allLevels[this.levelCount];
@@ -199,12 +198,12 @@ class Story{
         }
       })
       this.houses.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.7 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.65) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.6 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
           value.drawHouse(this.levelCanvasCtx);
         }
       } )
       this.trees.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.6 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.5 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.5) {
           value.drawTree(this.levelCanvasCtx);
         }
       })
