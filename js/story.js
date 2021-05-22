@@ -2,8 +2,9 @@ class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
     this.levelCanvas.width = 4500;
-    this.levelCanvas.height = 4000;
+    this.levelCanvas.height = 3500;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
+    document.body.appendChild(this.levelCanvas)
     this.isDragging = false;
     this.levelCount = 13;
     this.level = allLevels[this.levelCount];
@@ -152,56 +153,58 @@ class Story{
 
     drawLevelObjects = () => {
       this.tiles.forEach((value)=>{
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.9 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawTile(this.levelCanvasCtx);
         }
       })
       this.crosses.forEach((value)=>{
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawCross(this.levelCanvasCtx);
         }
       })
       this.berries.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.9 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawStuff(this.levelCanvasCtx);
         }
       })
       this.flowers.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.9 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawStuff(this.levelCanvasCtx);
         }
       })
       this.mushrooms.forEach((value) => {
-          if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+          if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.9 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
             value.drawStuff(this.levelCanvasCtx);
           }
       })
       this.ponds.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawPond(this.levelCanvasCtx);
         }
       })
       this.boxes.forEach((value)=>{
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawBox(this.levelCanvasCtx);
         }
        })
       this.player.drawPlayer(this.levelCanvasCtx);
       this.humans.forEach((value)=>{
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.9 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawHuman(this.levelCanvasCtx);
+        }
        })
       this.walls.forEach((value)=>{
-          if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
-            value.drawWall(this.levelCanvasCtx);
-          }
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.7 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.7) {
+          value.drawWall(this.levelCanvasCtx);
+        }
       })
       this.houses.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.7 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.65) {
           value.drawHouse(this.levelCanvasCtx);
         }
       } )
       this.trees.forEach((value) => {
-        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.6 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
           value.drawTree(this.levelCanvasCtx);
         }
       })

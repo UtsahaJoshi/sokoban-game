@@ -9,9 +9,12 @@ class Cross {
     this.crossStepped = document.getElementById("cross-stepped");
   }
   drawCross = (canvasCtx) => {
+    var cross;
     if (this.positionX === level.player.positionX && this.positionY === level.player.positionY){
-      this.cross = this.crossStepped;
+      cross = this.crossStepped;
+    } else {
+      cross = this.cross;
     }
-    canvasCtx.drawImage(this.cross, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(cross, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
