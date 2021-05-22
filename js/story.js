@@ -1,8 +1,8 @@
 class Story{
   constructor(){
     this.levelCanvas = document.createElement("canvas");
-    this.levelCanvas.width = width;
-    this.levelCanvas.height = height;
+    this.levelCanvas.width = 4500;
+    this.levelCanvas.height = 4000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
     this.isDragging = false;
     this.levelCount = 13;
@@ -39,10 +39,10 @@ class Story{
     getAndMakePlayer = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 8;
-          var positionY =  i * 8;
-          var sizeX = 8;
-          var sizeY = 8;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           switch(this.level[i][j]){
             case "@":
               this.player = new Player(positionX, positionY, sizeX, sizeY);
@@ -190,10 +190,10 @@ class Story{
     createLevelObjects = () => {
       for(var i = 0; i < this.level.length; i++){
         for(var j = 0; j < this.level[i].length; j++){
-          var positionX = j * 8;
-          var positionY =  i * 8;
-          var sizeX = 8;
-          var sizeY = 8;
+          var positionX = j * 40;
+          var positionY =  i * 40;
+          var sizeX = 40;
+          var sizeY = 40;
           this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
           switch(this.level[i][j]){
             case "#":

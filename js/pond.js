@@ -5,9 +5,9 @@ class Pond {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.pond = document.getElementById("pond");
   }
   drawPond= (canvasCtx) => {
-    var pond = document.getElementById("pond");
-    canvasCtx.drawImage(pond, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(this.pond, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }

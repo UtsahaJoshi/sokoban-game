@@ -12,10 +12,11 @@ class Box {
     };
     this.solved = false;
     this.isPush = null;
+    this.box = document.getElementById("box");
+    this.solvedBox = document.getElementById("box-solved");
   }
 
   drawBox = (canvasCtx) => {
-    var box = document.getElementById("box");
     if (level.player.direction !== this.isPush) {
       this.isPush = null;
     } else {
@@ -25,7 +26,7 @@ class Box {
 
     this.checkForSolvedBox();
     if (this.solved){
-      var box = document.getElementById("box-solved");
+      this.box = this.solvedbox;
     }
     canvasCtx.drawImage(box, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }

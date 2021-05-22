@@ -6,11 +6,12 @@ class Wall {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.wall = document.getElementById("pillar-wall");
+    this.normalWall = document.getElementById("normal-wall");
   }
   drawWall = (levelCanvasCtx) => {
     level.walls.forEach((value)=>{
       if (value.positionX === this.positionX && value.positionY === this.positionY + this.sizeY){
-        this.wall = document.getElementById("normal-wall")
+        this.wall = this.normalWall;
       }
     })
     levelCanvasCtx.drawImage(this.wall, this.positionX, this.positionY, this.sizeX, this.sizeY);

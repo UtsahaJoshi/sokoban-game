@@ -57,16 +57,16 @@ class Player {
       this.isMoving = false;
     }
     if(this.positionX < this.newPosition.x) {
-      this.positionX += 1.0;
+      this.positionX += 5;
     }
     if(this.positionX > this.newPosition.x) {
-      this.positionX -= 1.0;
+      this.positionX -= 5;
     }
     if(this.positionY < this.newPosition.y) {
-      this.positionY += 1.0;
+      this.positionY += 5;
     }
     if(this.positionY > this.newPosition.y) {
-      this.positionY -= 1.0;
+      this.positionY -= 5;
     }
   }
   movePlayer = (move) => {

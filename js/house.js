@@ -6,16 +6,19 @@ class House {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.houseRed = document.getElementById("house-red");
+    this.houseBlue = document.getElementById("house-blue");
+    this.houseGreen = document.getElementById("house-green");
   }
   drawHouse = (canvasCtx) => {
-    var house;
+    var houseImage;
     if (this.type === "red"){
-      house = document.getElementById("house-red");
+      houseImage = this.houseRed;
     } else if (this.type === "blue") {
-      house = document.getElementById("house-blue");
+      houseImage = this.houseBlue;
     } else {
-      house = document.getElementById("house-green");
+      houseImage = this.houseGreen;
     }
-    canvasCtx.drawImage(house, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(houseImage, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }

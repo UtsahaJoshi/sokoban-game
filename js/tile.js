@@ -5,11 +5,13 @@ class Tile {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.tile = document.getElementById("tile");
+    this.grass = document.getElementById("grass");
   }
   drawTile= (levelCanvasCtx) => {
-    var tile = document.getElementById("tile");
+    var tile = this.title;
     if (level.levelCount === 13) {
-      tile = document.getElementById("grass");
+      tile = this.grass;
     }
     levelCanvasCtx.drawImage(tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }

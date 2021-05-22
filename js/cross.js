@@ -5,12 +5,13 @@ class Cross {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.cross = document.getElementById("cross");
+    this.crossStepped = document.getElementById("cross-stepped");
   }
-  drawCross = (levelCanvasCtx) => {
-    var cross = document.getElementById("cross");
+  drawCross = (canvasCtx) => {
     if (this.positionX === level.player.positionX && this.positionY === level.player.positionY){
-      cross = document.getElementById("cross-stepped");
+      this.cross = this.crossStepped;
     }
-    levelCanvasCtx.drawImage(cross, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(this.cross, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }

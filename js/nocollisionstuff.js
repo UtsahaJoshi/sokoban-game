@@ -6,26 +6,30 @@ class noCollisionStuffs{
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.tile = document.getElementById("grass");
+    this.berries = document.getElementById("berries");
+    this.mushroom = document.getElementById("mushroom");
+    this.flowers = document.getElementById("flowers");
+    this.path = document.getElementById("path");
   }
   drawStuff = (canvasCtx) => {
     var stuff;
     var stuffSizeX = this.sizeX;
     var stuffSizeY = this.sizeY;
-    var tile = document.getElementById("grass");
     if (this.type === "berries"){
-      stuff = document.getElementById("berries");
+      stuff = this.berries;
     } else if (this.type === "mushroom") {
-      stuff = document.getElementById("mushroom");
-      stuffSizeX = 6;
-      stuffSizeY = 4;
+      stuff = this.mushroom;
+      stuffSizeX = 30;
+      stuffSizeY = 20;
     } else if (this.type === "flowers"){
-      stuff = document.getElementById("flowers");
-      stuffSizeX = 4;
-      stuffSizeY = 4;
+      stuff = this.flowers;
+      stuffSizeX = 40;
+      stuffSizeY = 20;
     } else {
-      stuff = document.getElementById("path");
+      stuff = this.path;
     }
-    canvasCtx.drawImage(tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(this.tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
     canvasCtx.drawImage(stuff, this.positionX, this.positionY, stuffSizeX, stuffSizeY);
   }
 }

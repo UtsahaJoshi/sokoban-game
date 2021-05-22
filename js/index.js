@@ -15,7 +15,6 @@ var story;
 
 var drawCanvas = () => {
   resizeScreen();
-  ctx.clearRect(0, 0, width, height);
   mainMenu.drawMenu();
   requestAnimationFrame(drawCanvas);
 }

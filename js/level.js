@@ -27,8 +27,10 @@ class Level{
     }
     
     getAndMakePlayer = () => {
-      for(var i = 0; i < this.level.length; i++){
-        for(var j = 0; j < this.level[i].length; j++){
+      var levLength = this.level.length;
+      for(var i = 0; i < levLength; i++){
+        var levLineLength = this.level[i].length;
+        for(var j = 0; j < levLineLength; j++){
           var positionX = j * 40;
           var positionY =  i * 40;
           var sizeX = 40;

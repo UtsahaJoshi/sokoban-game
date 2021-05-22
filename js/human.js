@@ -6,28 +6,36 @@ class Human {
     this.positionY = positionY;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.humanMD = document.getElementById("human1");
+    this.humanMP = document.getElementById("human2");
+    this.humanFD = document.getElementById("human6");
+    this.humanFP = document.getElementById("human7");
+    this.humanK1 = document.getElementById("human3");
+    this.humanK2 = document.getElementById("human4");
+    this.humanK3 = document.getElementById("human5");
+    this.humanS = document.getElementById("human8");
+    var question = question = document.getElementById("question");
   }
   drawHuman = (canvasCtx) => {
     var human;
     if (this.type === "male-dark"){
-      human = document.getElementById("human1");
+      human = this.humanMD;
     } else if (this.type === "male-pale") {
-      human = document.getElementById("human2");
+      human = this.humanMP;
     } else if (this.type === "female-dark") {
-      human = document.getElementById("human6");
+      human = this.humanFD;
     } else if (this.type === "female-pale") {
-      human = document.getElementById("human7");
+      human = this.humanFP;
     } else if (this.type === "kid1") {
-      human = document.getElementById("human3");
+      human = this.humanK1;
     } else if (this.type === "kid2") {
-      human = document.getElementById("human4");
+      human = this.humanK2;
     } else if (this.type === "kid3") {
-      human = document.getElementById("human5");
+      human = this.humanK3;
     } else if (this.type === "soldier") {
-      human = document.getElementById("human8");
+      human = this.humanS;
     }
-    var question = document.getElementById("question");
-    canvasCtx.drawImage(question, this.positionX, this.positionY - 80, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(question, this.positionX, this.positionY - 40, this.sizeX, this.sizeY);
     canvasCtx.drawImage(human, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
