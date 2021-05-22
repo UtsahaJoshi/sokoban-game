@@ -152,38 +152,58 @@ class Story{
 
     drawLevelObjects = () => {
       this.tiles.forEach((value)=>{
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawTile(this.levelCanvasCtx);
+        }
       })
       this.crosses.forEach((value)=>{
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawCross(this.levelCanvasCtx);
+        }
       })
       this.berries.forEach((value) => {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawStuff(this.levelCanvasCtx);
+        }
       })
       this.flowers.forEach((value) => {
-          value.drawStuff(this.levelCanvasCtx);  
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+          value.drawStuff(this.levelCanvasCtx);
+        }
       })
       this.mushrooms.forEach((value) => {
-          value.drawStuff(this.levelCanvasCtx);
+          if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+            value.drawStuff(this.levelCanvasCtx);
+          }
       })
       this.ponds.forEach((value) => {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawPond(this.levelCanvasCtx);
+        }
       })
       this.boxes.forEach((value)=>{
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawBox(this.levelCanvasCtx);
+        }
        })
       this.player.drawPlayer(this.levelCanvasCtx);
       this.humans.forEach((value)=>{
           value.drawHuman(this.levelCanvasCtx);
        })
       this.walls.forEach((value)=>{
-          value.drawWall(this.levelCanvasCtx);
+          if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
+            value.drawWall(this.levelCanvasCtx);
+          }
       })
       this.houses.forEach((value) => {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawHouse(this.levelCanvasCtx);
+        }
       } )
       this.trees.forEach((value) => {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width && Math.abs(this.player.positionY - value.positionY) < canvas.height) {
           value.drawTree(this.levelCanvasCtx);
+        }
       })
     }
 

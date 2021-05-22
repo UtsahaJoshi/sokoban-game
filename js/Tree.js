@@ -11,8 +11,6 @@ class Tree {
   }
   drawTree = (canvasCtx) => {
     var tree;
-    var stuffSizeX = this.sizeX*3;
-    var stuffSizeY = this.sizeY*3;
     if (this.type === "single"){
       tree = this.singleTree;
       this.sizeX = 120;
