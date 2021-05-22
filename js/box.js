@@ -16,7 +16,8 @@ class Box {
     this.solvedBox = document.getElementById("box-solved");
   }
 
-  drawBox = (canvasCtx) => {
+  drawBox = (canvasCtx) => { 
+    var crate = this.box;
     if (level.player.direction !== this.isPush) {
       this.isPush = null;
     } else {
@@ -26,9 +27,9 @@ class Box {
 
     this.checkForSolvedBox();
     if (this.solved){
-      this.box = this.solvedbox;
+      crate = this.solvedBox;
     }
-    canvasCtx.drawImage(box, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    canvasCtx.drawImage(crate, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 
   keepPushing = () =>{

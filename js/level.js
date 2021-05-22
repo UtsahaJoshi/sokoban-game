@@ -192,7 +192,6 @@ class Level{
             case "@":
               this.player = new Player(positionX, positionY, sizeX, sizeY);
               break;
-
             case "*":
               this.crosses.push(new Cross(this.crosses.length, positionX, positionY, sizeX, sizeY));
               break;

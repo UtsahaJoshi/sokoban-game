@@ -17,8 +17,6 @@ class Story{
     this.houses = [];
     this.berries = [];
     this.flowers = [];
-    this.flowerPotBig = [];
-    this.flowerPotSmall = [];
     this.trees = [];
     this.mushrooms = [];
     this.ponds = [];
@@ -181,7 +179,7 @@ class Story{
         }
     })
     this.ponds.forEach((value) => {
-      if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.8 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.8) {
+      if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.8 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
         value.drawPond(this.levelCanvasCtx);
       }
     })
@@ -207,8 +205,14 @@ class Story{
       }
     } )
     this.trees.forEach((value) => {
-      if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.5 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.5) {
-        value.drawTree(this.levelCanvasCtx);
+      if (value.type == "single") {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.6 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {
+          value.drawTree(this.levelCanvasCtx);
+        }
+      } else {
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.2) {
+          value.drawTree(this.levelCanvasCtx);
+        }
       }
     })
   }
@@ -223,6 +227,9 @@ class Story{
         var sizeX = 40;
         var sizeY = 40;
         switch(this.level[i][j]){
+          case "#":
+            this.walls.push(new Wall(this.walls.length, positionX, positionY, sizeX, sizeY));
+            break;
           case "@":
             this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
             this.player = new Player(positionX, positionY, sizeX, sizeY);

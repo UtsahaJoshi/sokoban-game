@@ -58,9 +58,11 @@ canvas.addEventListener("mousemove", (e) => {
   if (mainMenu){
     mainMenu.menuSelection(e);
   }
-  if(level) {
-    level.seeMap(e);
+  if (level) {
     level.pauseHover(e);
     level.pauseMenuSelection(e);
+    if(level.levelCount !== 13) {
+      level.seeMap(e);
+    }
   }
 });

@@ -15,11 +15,13 @@ class Player {
     this.frameCount = 0;
     this.currentLoopIndex = 0;
   }
+
   drawPlayer= (canvasCtx) => {
     this.keepMoving();
     this.getPlayerImage();
     canvasCtx.drawImage(this.player, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
+
   getPlayerImage(){
     const FRAME_LIMIT = 10;
     const CYCLE_LOOP = [1, 2, 1, 3];
@@ -50,6 +52,7 @@ class Player {
         break;
     }
   }
+
   keepMoving = () => {
     if (this.newPosition.x !== this.positionX ||  this.newPosition.y !== this.positionY){
       this.isMoving = true;
@@ -69,7 +72,22 @@ class Player {
       this.positionY -= 5;
     }
   }
+
   movePlayer = (move) => {
+    if (this.direction !== move) {
+      if (this.direction === "right" && this.newPosition.x - this.positionX > 0) {
+        this.newPosition.x = this.newPosition.x - this.sizeX;
+      }
+      if (this.direction === "left" && this.positionX - this.newPosition.x > 0) {
+        this.newPosition.x = this.newPosition.x + this.sizeX;
+      }
+      if (this.direction === "down" && this.newPosition.y - this.positionY > 0) {
+        this.newPosition.y = this.newPosition.y - this.sizeY;
+      }
+      if (this.direction === "up" && this.positionY - this.newPosition.y > this.sizeY) {
+        this.newPosition.y = this.newPosition.y + this.sizeY;
+      }
+  }
     this.direction = move;
     var check1 = Math.abs(this.newPosition.x - this.positionX) < this.sizeX;
     var check2 = Math.abs(this.newPosition.y - this.positionY) < this.sizeY;
@@ -147,7 +165,6 @@ class Player {
         }
       })
       level.humans.forEach((human) => {
-        console.log(this.positionX, this.positionY, human.positionX, human.positionY)
         if ((this.newPosition.x === human.positionX) && (this.newPosition.y === human.positionY)){
           this.collisionCorrection(direction);
         }
