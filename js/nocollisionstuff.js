@@ -14,22 +14,15 @@ class noCollisionStuffs{
   }
   drawStuff = (canvasCtx) => {
     var stuff;
-    var stuffSizeX = this.sizeX;
-    var stuffSizeY = this.sizeY;
     if (this.type === "berries"){
       stuff = this.berries;
     } else if (this.type === "mushroom") {
       stuff = this.mushroom;
-      stuffSizeX = 30;
-      stuffSizeY = 20;
     } else if (this.type === "flowers"){
       stuff = this.flowers;
-      stuffSizeX = 40;
-      stuffSizeY = 20;
     } else {
       stuff = this.path;
     }
-    canvasCtx.drawImage(this.tile, this.positionX, this.positionY, this.sizeX, this.sizeY);
-    canvasCtx.drawImage(stuff, this.positionX, this.positionY, stuffSizeX, stuffSizeY);
+    canvasCtx.drawImage(stuff, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
