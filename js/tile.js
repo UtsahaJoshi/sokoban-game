@@ -9,7 +9,7 @@ class Tile {
     this.grass = document.getElementById("grass");
   }
   drawTile= (levelCanvasCtx) => {
-    var tile = this.title;
+    var tile = this.tile;
     if (level.levelCount === 13) {
       tile = this.grass;
     }
