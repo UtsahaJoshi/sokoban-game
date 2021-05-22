@@ -34,11 +34,14 @@ class Story{
     this.pauseHovered = false;
     this.selection = [[0, 0, 0, 0],[0,0,0]];
     this.isStory = true;
+    this.pause = document.getElementById("pause");
     }
     
     getAndMakePlayer = () => {
-      for(var i = 0; i < this.level.length; i++){
-        for(var j = 0; j < this.level[i].length; j++){
+      var levLength = this.level.length;
+      for(var i = 0; i < levLength; i++){
+        var levLineLength = this.level[i].length;
+        for(var j = 0; j < levLineLength; j++){
           var positionX = j * 40;
           var positionY =  i * 40;
           var sizeX = 40;
@@ -53,17 +56,15 @@ class Story{
     }
 
     drawLevel = () => {
-      var pause = document.getElementById("pause");
+      var pause = this.pause;
       ctx.clearRect(0, 0, width, height);
-      this.camera.getCamPos();
       this.drawLevelObjects();
-      (this.camera.isSnapping || this.camera.changeScene) ? this.camera.snapCameraBackInPosition() : 0;
       ctx.drawImage(this.levelCanvas, this.player.positionX - canvas.width/2.1, this.player.positionY - canvas.height/2.5, width, height, 0, 0, width, height);
       if (!this.paused){
         if (!this.levelComplete){
           if (this.pauseHovered){
             canvas.style.cursor = "pointer";
-            pause = document.getElementById("pause-hover");
+            pause = this.pauseHover;
           }
           ctx.drawImage(pause, width - 120, 10, 100 , 100 );
         } else {        
@@ -156,6 +157,11 @@ class Story{
           value.drawTile(this.levelCanvasCtx);
         }
       })
+      this.paths.forEach((value)=>{
+        if (Math.abs(this.player.positionX - value.positionX) < canvas.width/2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
+          value.drawStuff(this.levelCanvasCtx);
+        }
+        })
       this.crosses.forEach((value)=>{
         if (Math.abs(this.player.positionX - value.positionX) < canvas.width/2 && Math.abs(this.player.positionY - value.positionY) < canvas.height/2) {
           value.drawCross(this.levelCanvasCtx);
@@ -210,21 +216,24 @@ class Story{
     }
 
     createLevelObjects = () => {
-      for(var i = 0; i < this.level.length; i++){
-        for(var j = 0; j < this.level[i].length; j++){
+      var levLength = this.level.length;
+      for(var i = 0; i < levLength; i++){
+        var levLineLength = this.level[i].length;
+        for(var j = 0; j < levLineLength; j++){
           var positionX = j * 40;
           var positionY =  i * 40;
           var sizeX = 40;
           var sizeY = 40;
-          this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
           switch(this.level[i][j]){
             case "#":
               this.walls.push(new Wall(this.walls.length, positionX, positionY, sizeX, sizeY));
               break;
             case "+":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.boxes.push(new Box(this.boxes.length, positionX, positionY, sizeX, sizeY));
               break;
             case "@":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.player = new Player(positionX, positionY, sizeX, sizeY);
               break;
             case "*":
@@ -235,27 +244,35 @@ class Story{
               this.boxes.push(new Box(this.boxes.length, positionX, positionY, sizeX, sizeY));
               break;
             case "R":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.houses.push(new House(this.houses.length, "red", positionX, positionY, sizeX*5, sizeY*5));
               break;
             case "B":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.houses.push(new House(this.houses.length, "blue", positionX, positionY, sizeX*5, sizeY*5));
               break;
             case "G":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.houses.push(new House(this.houses.length, "green", positionX, positionY, sizeX*5, sizeY*5));
               break;
             case "b":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.berries.push(new noCollisionStuffs(this.berries.length, "berries", positionX, positionY, sizeX, sizeY));
               break;
             case "f":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.flowers.push(new noCollisionStuffs(this.flowers.length, "flowers", positionX, positionY, sizeX, sizeY));
               break;
             case "m":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.mushrooms.push(new noCollisionStuffs(this.mushrooms.length, "mushroom", positionX, positionY, sizeX, sizeY));
               break;
             case "t":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.trees.push(new Tree(this.trees.length, "single", positionX, positionY, sizeX, sizeY));
               break;
             case "T":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.trees.push(new Tree(this.trees.length, "group", positionX, positionY, sizeX, sizeY));
               break;
             case "P":
@@ -265,56 +282,63 @@ class Story{
               this.humans.push(new Human(this.humans.length, "male-dark", positionX, positionY, sizeX, sizeY))
               break;
             case "!":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "male-pale", positionX, positionY, sizeX, sizeY))
               break;
             case "|":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "female-dark", positionX, positionY, sizeX, sizeY))
               break;
             case "?":
               this.humans.push(new Human(this.humans.length, "female-pale", positionX, positionY, sizeX, sizeY))
               break;
             case "<":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "kid1", positionX, positionY, sizeX, sizeY))
               break;
             case ">":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "kid2", positionX, positionY, sizeX, sizeY))
               break;
             case "^":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "kid3", positionX, positionY, sizeX, sizeY))
               break;
             case "-":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
               this.humans.push(new Human(this.humans.length, "soldier", positionX, positionY, sizeX, sizeY))
               break;
             case " ":
-              this.mushrooms.push(new noCollisionStuffs(this.mushrooms.length, "path", positionX, positionY, sizeX, sizeY));
+              this.paths.push(new noCollisionStuffs(this.paths.length, "path", positionX, positionY, sizeX, sizeY));
+              break;
+            case "=":
+              this.tiles.push(new Tile(this.tiles.length, positionX, positionY, sizeX, sizeY));
+              break;
           }
         }
       }
     }
 
     playerControl = (event) => {
-      if (this.camera.xDrag !== 0 || this.camera.yDrag !==0) this.camera.isSnapping = true;
-      if (!this.camera.isSnapping) {
-        var key = event.code;
-        var direction;
-        switch(key){
-          case "ArrowRight":
-            direction = "right";
-            break;
-          case "ArrowLeft":
-            direction = "left";
-            break;
-          case "ArrowUp":
-            direction = "up";
-            break;
-          case "ArrowDown":
-            direction = "down";
-            break;
-          default:
-            break;
-        }
-        this.player.movePlayer(direction);
+      var key = event.code;
+      var direction;
+      switch(key){
+        case "ArrowRight":
+          direction = "right";
+          break;
+        case "ArrowLeft":
+          direction = "left";
+          break;
+        case "ArrowUp":
+          direction = "up";
+          break;
+        case "ArrowDown":
+          direction = "down";
+          break;
+        default:
+          break;
       }
+      this.player.movePlayer(direction);
     }
     pauseClicked = (e) => {
       if (e.pageX > width - 120 && e.pageX < width - 20 && e.pageY > 10 && e.pageY < 110){
