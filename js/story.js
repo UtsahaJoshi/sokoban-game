@@ -53,11 +53,11 @@ class Story{
   }
 
   drawLevel = () => {
-    var pause = this.pause;
     this.drawLevelObjects();
     ctx.drawImage(this.levelCanvas, this.player.positionX - canvas.width/2.1, this.player.positionY - canvas.height/2.5, width, height, 0, 0, width, height);
     if (!this.paused){
       if (!this.levelComplete){
+        var pause = this.pause;
         if (this.pauseHovered){
           canvas.style.cursor = "pointer";
           pause = this.pauseHover;

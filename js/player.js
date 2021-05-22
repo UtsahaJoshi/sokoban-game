@@ -74,24 +74,23 @@ class Player {
   }
 
   movePlayer = (move) => {
-    if (this.direction !== move) {
-      if (this.direction === "right" && this.newPosition.x - this.positionX > 0) {
-        this.newPosition.x = this.newPosition.x - this.sizeX;
+    if (this.direction !== move){
+      if (this.direction === "right") {
+        this.newPosition. x = Math.ceil(this.positionX/40) * 40
       }
-      if (this.direction === "left" && this.positionX - this.newPosition.x > 0) {
-        this.newPosition.x = this.newPosition.x + this.sizeX;
+      if (this.direction === "left") {
+        this.newPosition. x = Math.floor(this.positionX/40) * 40
       }
-      if (this.direction === "down" && this.newPosition.y - this.positionY > 0) {
-        this.newPosition.y = this.newPosition.y - this.sizeY;
+      if (this.direction === "down") {
+        this.newPosition.y = Math.ceil(this.positionY/40) * 40
       }
-      if (this.direction === "up" && this.positionY - this.newPosition.y > this.sizeY) {
-        this.newPosition.y = this.newPosition.y + this.sizeY;
+      if (this.direction === "up") {
+        this.newPosition.y = Math.floor(this.positionY/40) * 40
       }
-  }
-    this.direction = move;
-    var check1 = Math.abs(this.newPosition.x - this.positionX) < this.sizeX;
-    var check2 = Math.abs(this.newPosition.y - this.positionY) < this.sizeY;
-    if (check1 && check2) {
+    }
+
+    if (Math.abs(this.positionX - this.newPosition.x) < this.sizeX && Math.abs(this.positionY - this.newPosition.y) < this.sizeY){
+      this.direction = move;
       switch (move) {
         case "right":
           this.newPosition = {
