@@ -79,8 +79,14 @@ class Level{
           ctx.strokeText("BRAVO!", canvas.width/2, 320);
           ctx.font = "15px Soko";
           var lvlCompleteTxt = "LEVEL " + this.levelCount + " COMPLETED!"
-          if (this.levelCount === 2){
+          if (this.levelCount > 11){
             lvlCompleteTxt = "ALL LEVELS COMPLETED!"
+          }
+          if (story) {
+            lvlCompleteTxt = "YOU DID IT!"
+            if (story.levelConvo === 8) {
+              lvlCompleteTxt = "Story Mode Complete"
+            }
           }
           ctx.fillText(lvlCompleteTxt, canvas.width/2, 360);
           ctx.font = "20px Soko";
@@ -90,8 +96,11 @@ class Level{
           }
           ctx.strokeText("PLAY AGAIN!", canvas.width/2, 420);
           var nxtLvlTxt = "NEXT LEVEL";
-          if (this.levelCount === 2){
+          if (this.levelCount > 11){
             nxtLvlTxt = "START OVER"
+          }
+          if (story) {
+            nxtLvlTxt = "CONTINUE";
           }
           if (this.selection[1][1] == 1){
             canvas.style.cursor = "pointer";
@@ -313,6 +322,33 @@ class Level{
           this.selection[1][1] = 1;
           if (e.type == "mousedown"){
             this.selection[1][1] = 0;
+            if (story) {
+              if (story.levelConvo === 8) {
+                this.selection[1][2] = 0;
+                level = null;
+                story = null;
+                localStorage.setItem("storymode", null);
+                return;
+              }
+              level = null;
+              level = story;
+              level.missionStart = false;
+              if (level.levelConvo === 0) {
+                level.conversationDialogues[3] = {0: "All done!", 1: "Thank you Sokoban my house was a mess!", 2: "My pleasure!", 3: "See you around. Have a nice day!"};
+                level.levelOrder[0] = "EVA1";
+              }
+              if (level.levelConvo === 2) {
+                level.conversationDialogues[5] = {0: "Here's your key, Jake!", 1: "Thanks! Sokoban! Have you met Bob?", 2: "Not yet!", 3: "Go see him. such a nice bloke!", 4: "Sure! G'day!"};
+              }
+              if (level.levelConvo === 4) {
+                level.conversationDialogues[7] = {0: "All complete! Do rate my services.", 1: "I'll give you a 5 star if you don't tell Bob where I am!", 2: "Haha! I got your back. Peace!", 3: "Don't tell Kumar either. He is Bob's good friend.", 4: "Telling nobody!"};
+              }
+              if (level.levelConvo === 6) {
+                level.conversationDialogues[9] = {0: "Complete! I need some rest.", 1: "Thanks and don't forget to come to the party tonight!", 2: "Where is it?", 3: "Go meet Eva by the pond. She will tell you.", 4: "On my way.", 5: "Thanks again!"};
+              }
+              level.levelConvo += 2;
+              return;
+            }
             if (this.levelCount < 12) {
               level = new Level(this.levelCount + 1)
             } else {

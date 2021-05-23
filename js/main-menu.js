@@ -185,10 +185,9 @@ class MainMenu{
       if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 290 && mousePos[1] < 330 ){
         this.selection[0][0] = 1;
         if (e.type == "mousedown"){
-          this.menuPage = 1;
+          this.menuPage = 0;
           this.selection = [[0,0,0,0],[0,0],0];
-          level = JSON.parse(localStorage.getItem("storymode")) || new Story();
-          console.log(level);
+          level = new Story();
         }
       } else {
         this.selection[0][0] = 0;
