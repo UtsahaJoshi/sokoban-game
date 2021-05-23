@@ -34,9 +34,6 @@ window.addEventListener("keydown", (e) => {
   if (level && !level.paused && !level.levelComplete){
     level.playerControl(e);
   }
-  if (story){
-    story.playerControl(e);
-  }
 });
 canvas.addEventListener("mousedown", (e) => {
   if (mainMenu){
