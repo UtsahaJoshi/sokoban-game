@@ -4,11 +4,8 @@ class Story{
     this.levelCanvas.width = 4500;
     this.levelCanvas.height = 3200;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
-    this.isDragging = false;
     this.levelCount = 13;
     this.level = allLevels[this.levelCount];
-
-    this.levelComplete = false;
 
     this.walls = [];
     this.tiles = [];
@@ -35,6 +32,7 @@ class Story{
     this.conversationIndex = 0;
     this.conversationTurnIndex = 0;
     this.storyBegins = true;
+
     this.conversationDialogues = {
       0: {0 : "Such a lovely town! I'm sure I can find a job here. Let me ask around."},
       1: {0 : "Hey! I'm new in town.", 1 : "Welcome! Come to the party tonight!", 2: "Where exactly!", 3: "You will know soon.", 4: "Okay! Excited!"},
@@ -48,6 +46,7 @@ class Story{
       9: {0: "Kumar said you have a job for me.", 1: "Sure I do. Kumar sir is opening a store soon.", 2: "That's great.", 3: " We had some products delivered to us yesterday.", 4: "Want me to arrange and store them?", 5: "Yes sir they are at my house right now.", 6: "Sokoban is at it."},
       10: {0: "Hey, Eva where is the party?", 1: "At your place. surprise, surprise!", 2: "But my place is a mess.", 3: "Go get it cleaned up.", 4: "But I'll have to cook for you guys too.", 5: "Don't worry about food. We got you.", 6: "Sweet! Okay, I will go clean my house up."}
     }
+    
     this.convoWith = null;
     this.levelOrder = ["Eva", "Kamala", "Samantha", "Jake", "Bob", "Kamara", "Kumar", "Dave", "Eva"];
     this.levelConvo = 0;
@@ -128,58 +127,12 @@ class Story{
       this.getDialogue();
     }
     if (!this.paused){
-      if (!this.levelComplete){
-        var pause = this.pause;
-        if (this.pauseHovered){
-          canvas.style.cursor = "pointer";
-          pause = this.pauseHoverImg;
-        }
-        ctx.drawImage(pause, width - 120, 10, 100 , 100 );
-      } else {        
-        var logo = document.getElementById("logo");
-        var face = document.getElementById("face");
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.fillRect(width/2-logo.width/4, 150,logo.width/2, 520);
-        ctx.fillStyle = 'rgba(0,0,0,1)';
-        ctx.font = "10px Soko";
-        ctx.fillStyle = "#ffffff";
-        ctx.fillText("Small Town", canvas.width/2-120, 190);
-        ctx.drawImage(logo, width/2-logo.width/4, 150,logo.width/2, logo.height/2);
-        ctx.drawImage(face, width/2-160, 165,face.width/2, face.height/2);
-        ctx.font = "20px Soko";
-        ctx.fillStyle = "	#FFD700";
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 2;
-        ctx.textAlign = "center";
-        ctx.fillText("BRAVO!", canvas.width/2, 320);
-        ctx.strokeText("BRAVO!", canvas.width/2, 320);
-        ctx.font = "15px Soko";
-        var lvlCompleteTxt = "LEVEL " + this.levelCount + " COMPLETED!"
-        if (this.levelCount === 2){
-          lvlCompleteTxt = "ALL LEVELS COMPLETED!"
-        }
-        ctx.fillText(lvlCompleteTxt, canvas.width/2, 360);
-        ctx.font = "20px Soko";
-        if (this.selection[1][0] == 1){
-          canvas.style.cursor = "pointer";
-          ctx.fillText("PLAY AGAIN!", canvas.width/2, 420);
-        }
-        ctx.strokeText("PLAY AGAIN!", canvas.width/2, 420);
-        var nxtLvlTxt = "NEXT LEVEL";
-        if (this.levelCount === 2){
-          nxtLvlTxt = "START OVER"
-        }
-        if (this.selection[1][1] == 1){
-          canvas.style.cursor = "pointer";
-          ctx.fillText(nxtLvlTxt, canvas.width/2, 520);
-        }
-        ctx.strokeText(nxtLvlTxt, canvas.width/2, 520);
-        if (this.selection[1][2] == 1){
-          canvas.style.cursor = "pointer";
-          ctx.fillText("EXIT", canvas.width/2, 620);
-        }
-        ctx.strokeText("EXIT", canvas.width/2, 620);
+      var pause = this.pause;
+      if (this.pauseHovered){
+        canvas.style.cursor = "pointer";
+        pause = this.pauseHoverImg;
       }
+      ctx.drawImage(pause, width - 120, 10, 100 , 100 );
     } else {
       var logo = document.getElementById("logo");
       var face = document.getElementById("face");
@@ -405,8 +358,6 @@ class Story{
             if (Math.abs(this.player.positionX - value.positionX) <= 40 && Math.abs(this.player.positionY - value.positionY) <= 40) {
               this.conversation = true;
               this.convoWith = value.nickName;
-              console.log(this.levelOrder)
-              console.log(this.convoWith, this.levelConvo, this.levelOrder.indexOf(this.convoWith));
               if (this.levelConvo === this.levelOrder.indexOf(this.convoWith)){
                 this.conversationIndex = 2 + this.levelConvo;
               } else if (this.missionStart && this.levelConvo + 1 === this.levelOrder.indexOf(this.convoWith)) {
@@ -416,17 +367,14 @@ class Story{
               } else {
                 this.conversationIndex = 1;
               }
-              console.log(this.levelConvo, this.convoWith, this.missionStart, this.conversationIndex)
             }
           })
           this.houses.forEach((value)=>{
             if (this.missionStart && this.player.positionX - value.positionX === 80 && this.player.positionY - value.positionY === 200) {
-              console.log(this.player.positionX, this.player.positionY)
               if (this.levelConvo === 0 && this.player.positionX === 2080 && this.player.positionY === 480) {
                 story = level;
                 level = new Level(1);
               }
-              console.log(this.player.positionX, this.player.positionY);
               if (this.levelConvo === 2 && this.player.positionX === 3480 && this.player.positionY === 840) {
                 story = level;
                 level = new Level(2);
@@ -508,50 +456,6 @@ class Story{
         }
       } else {
         this.selection[0][3] = 0;
-      }
-    }
-    if (this.levelComplete){
-      // Play Again
-      if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 390 && mousePos[1] < 430 ){
-        this.selection[1][0] = 1;
-        if (e.type == "mousedown"){
-          this.selection[1][0] = 0;
-          this.walls = [];
-          this.tiles = [];
-          this.boxes = [];
-          this.crosses = [];
-          this.player;
-          this.getAndMakePlayer();
-          this.createLevelObjects();
-          this.levelComplete = false;
-        }
-      } else {
-        this.selection[1][0] = 0;
-      }
-      // Next Level
-      if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 490 && mousePos[1] < 530 ){
-        this.selection[1][1] = 1;
-        if (e.type == "mousedown"){
-          this.selection[1][1] = 0;
-          if (this.levelCount < 12) {
-            level = new Level(this.levelCount + 1)
-          } else {
-            level = new Level(1)
-          }
-        }
-      } else {
-        this.selection[1][1] = 0;
-      }
-      // Exit
-      if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 590 && mousePos[1] < 630 ){
-        this.selection[1][2] = 1;
-        if (e.type == "mousedown"){
-          this.selection[1][2] = 0;
-          this.levelComplete = false;
-          level = null;
-        }
-      } else {
-        this.selection[1][2] = 0;
       }
     }
   }

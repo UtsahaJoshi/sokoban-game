@@ -5,7 +5,6 @@ class Level{
     this.levelCanvas.height = 2000;
     this.levelCanvasCtx = this.levelCanvas.getContext("2d");
 
-    this.isDragging = false;
     this.levelCount = levelCount;
     this.level = allLevels[this.levelCount];
 
@@ -160,7 +159,6 @@ class Level{
        (totalSolved === this.boxes.length) ? this.levelComplete = true : this.levelComplete = false;
        if (this.levelComplete) {
          localStorage.setItem("soko-level-complete", this.levelCount);
-         console.log(this.levelCount, mainMenu.levelInStorage)
          if (mainMenu.levelInStorage < this.levelCount) {
           mainMenu.levelInStorage = Number(localStorage.getItem("soko-level-complete"));
          }

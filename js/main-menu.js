@@ -206,8 +206,9 @@ class MainMenu{
       if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 490 && mousePos[1] < 530 ){
         this.selection[0][2] = 1;
         if (e.type == "mousedown"){
-          this.menuPage = 3;
+          this.menuPage = 0;
           this.selection = [[0,0,0,0],[0,0],0];
+          level = new LevelEditor();
         }
       } else {
         this.selection[0][2] = 0;

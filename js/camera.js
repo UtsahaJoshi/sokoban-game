@@ -1,8 +1,13 @@
 class Camera {
   constructor(map) {
     this.level = map
-    this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
-    this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
+    this.camPosXOffset = 0;
+    this.camPosYOffset = 0;
+    console.l
+    if (this.level.player) {
+      this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
+      this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
+    }
     this.newSceneX = this.camPosXOffset * canvas.width;
     this.newSceneY = this.camPosYOffset * canvas.height;
     this.camPosX = this.newSceneX;
@@ -18,8 +23,10 @@ class Camera {
     this.camPosY = - this.yDrag + this.newSceneY;
     var lastOffsetX = this.camPosXOffset;
     var lastOffsetY = this.camPosYOffset;
-    this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
-    this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
+    if (this.level.player){
+      this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
+      this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
+    }
     if (lastOffsetX !== this.camPosXOffset){
       if (lastOffsetX < this.camPosXOffset){
         this.changeScene = "right"

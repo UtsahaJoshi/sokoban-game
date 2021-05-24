@@ -39,13 +39,27 @@ canvas.addEventListener("mousedown", (e) => {
   if (mainMenu){
     mainMenu.menuSelection(e);
   }
-  if (level){
+  if (level && !level.deleteObject){
     startingPos = [e.pageX, e.pageY]
     isDragging = true;
     level.pauseClicked(e);
     level.pauseMenuSelection(e);
+    if (level.levelCount === 14) {
+      level.placeObject(e);
+      level.editorMenuSelection(e);
+    }
   }
 });
+
+canvas.oncontextmenu = function(e) {
+  e.preventDefault();
+  console.log("hello", e)
+  if (level.levelCount === 14) {
+    level.deleteObject = true;
+    level.placeObject(e);
+  }
+};
+
 canvas.addEventListener("mouseup", (e) => {
   if (level){
     isDragging = false;
@@ -60,6 +74,10 @@ canvas.addEventListener("mousemove", (e) => {
     level.pauseMenuSelection(e);
     if(level.levelCount !== 13) {
       level.seeMap(e);
+    }
+    if (level.levelCount === 14) {
+      level.editorMenuSelection(e);
+      if (isDragging) level.placeObject(e);
     }
   }
 });
