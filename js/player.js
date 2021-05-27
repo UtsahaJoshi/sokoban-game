@@ -168,19 +168,19 @@ class Player {
           this.collisionCorrection(direction);
         }
       })
+    } else {
+      // box slam
+      level.boxes.forEach((firstBox) => {
+        if (firstBox.positionX === this.newPosition.x && firstBox.positionY === this.newPosition.y){
+          firstBox.isPush = direction;
+          firstBox.moveBox(direction)
+        }
+      })
     }
     // wall slam
     level.walls.forEach((wall) => {
       if (wall.positionX === this.newPosition.x && wall.positionY === this.newPosition.y){
         this.collisionCorrection(direction);
-      }
-    })
-
-    // box slam
-    level.boxes.forEach((firstBox) => {
-      if (firstBox.positionX === this.newPosition.x && firstBox.positionY === this.newPosition.y){
-        firstBox.isPush = direction;
-        firstBox.moveBox(direction)
       }
     })
   }

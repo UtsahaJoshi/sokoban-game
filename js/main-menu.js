@@ -2,7 +2,9 @@ class MainMenu{
   constructor(){
     this.selection = [[0,0,0,0],[0,0],0];
     this.menuPage = 0;
-    this.levelInStorage = Number(localStorage.getItem("soko-level-complete")) || 0;
+    this.levelInStorage = Number(getSavedData("soko-level-complete")) || 0;
+    this.bgAudio = document.getElementById("bg-music");
+    this.bgAudio.loop = true;
   }
   drawMenu = () => {
     if (!level){
@@ -165,6 +167,9 @@ class MainMenu{
                 this.menuPage = 0;
                 this.selection = [[0,0,0,0],[0,0],0];
                 level = new Level(levelCount);
+                if (audio) {
+                  this.bgAudio.play();
+                }
               }
             }
           }
@@ -188,6 +193,9 @@ class MainMenu{
           this.menuPage = 0;
           this.selection = [[0,0,0,0],[0,0],0];
           level = new Story();
+          if (audio) {
+            this.bgAudio.play();
+          }
         }
       } else {
         this.selection[0][0] = 0;
@@ -209,6 +217,9 @@ class MainMenu{
           this.menuPage = 0;
           this.selection = [[0,0,0,0],[0,0],0];
           level = new LevelEditor();
+          if (audio) {
+            this.bgAudio.play();
+          }
         }
       } else {
         this.selection[0][2] = 0;

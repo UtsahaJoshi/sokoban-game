@@ -7,8 +7,12 @@ body{
   background-image: url('../images/Ground/grass.png');
   cursor: pointer;
 }
-.image-assets{
+.assets{
   display:none;
+}
+
+#file-input{
+  display: none;
 }
 
 @font-face {

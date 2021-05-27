@@ -11,8 +11,9 @@ var startingPos = [];
 mainMenu = new MainMenu();
 var level;
 var story;
+var levelEditor;
 
-
+// loop function that draws on the canvas
 var drawCanvas = () => {
   resizeScreen();
   ctx.clearRect(0, 0, width, height);
@@ -20,6 +21,7 @@ var drawCanvas = () => {
   requestAnimationFrame(drawCanvas);
 }
 
+// function that updates height and width when resized
 var resizeScreen = () => {
   height = window.innerHeight;
   width = window.innerWidth;
@@ -29,55 +31,52 @@ var resizeScreen = () => {
 
 requestAnimationFrame(drawCanvas);
 
-window.addEventListener("resize", resizeScreen);
-window.addEventListener("keydown", (e) => {
-  if (level && !level.paused && !level.levelComplete){
-    level.playerControl(e);
-  }
-});
-canvas.addEventListener("mousedown", (e) => {
-  if (mainMenu){
-    mainMenu.menuSelection(e);
-  }
-  if (level && !level.deleteObject){
-    startingPos = [e.pageX, e.pageY]
-    isDragging = true;
-    level.pauseClicked(e);
-    level.pauseMenuSelection(e);
-    if (level.levelCount === 14) {
-      level.placeObject(e);
-      level.editorMenuSelection(e);
+// create and immediately invoke event listeners
+var eventListeners = (() => {
+  window.addEventListener("resize", resizeScreen);
+  window.addEventListener("keydown", (e) => {
+    if (level && !level.paused && !level.levelComplete && level.levelCount !== 14){
+      playerControl(e);
     }
-  }
-});
-
-canvas.oncontextmenu = function(e) {
-  e.preventDefault();
-  console.log("hello", e)
-  if (level.levelCount === 14) {
-    level.deleteObject = true;
-    level.placeObject(e);
-  }
-};
-
-canvas.addEventListener("mouseup", (e) => {
-  if (level){
-    isDragging = false;
-  }
-});
-canvas.addEventListener("mousemove", (e) => {
-  if (mainMenu){
-    mainMenu.menuSelection(e);
-  }
-  if (level) {
-    level.pauseHover(e);
-    level.pauseMenuSelection(e);
-    if(level.levelCount !== 13) {
-      level.seeMap(e);
+  });
+  canvas.addEventListener("mousedown", (e) => {
+    if (mainMenu){
+      mainMenu.menuSelection(e);
     }
-    if (level.levelCount === 14) {
-      level.editorMenuSelection(e);
-      if (isDragging) level.placeObject(e);
+    if (level){
+      startingPos = [e.pageX, e.pageY]
+      if (level.levelCount === 14) {
+        if (startingPos[0]>150) {
+          level.placeObject(e);
+        }
+        level.editorMenuSelection(e);
+      }
+      isDragging = true;
+      pauseClicked(e);
+      pauseMenuSelection(e);
     }
-  }
-});
+  });
+  
+  canvas.addEventListener("mouseup", (e) => {
+    if (level){
+      isDragging = false;
+    }
+  });
+  
+  canvas.addEventListener("mousemove", (e) => {
+    if (mainMenu){
+      mainMenu.menuSelection(e);
+    }
+    if (level) {
+      pauseHover(e);
+      pauseMenuSelection(e);
+      if(level.levelCount !== 13) {
+        seeMap(e);
+      }
+      if (level.levelCount === 14) {
+        if (!isDragging) level.editorMenuSelection(e);
+        if (startingPos[0]>150 && isDragging) level.placeObject(e);
+      }
+    }
+  });
+})();

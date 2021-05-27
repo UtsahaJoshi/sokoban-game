@@ -18,10 +18,12 @@ class Box {
 
   drawBox = (canvasCtx) => { 
     var crate = this.box;
-    if (level.player.direction !== this.isPush) {
-      this.isPush = null;
-    } else {
-      this.canMoveBox(this.direction);
+    if (level.player) {
+      if (level.player.direction !== this.isPush) {
+        this.isPush = null;
+      } else {
+        this.canMoveBox(this.direction);
+      }
     }
     this.keepPushing();
 
