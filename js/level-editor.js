@@ -337,6 +337,8 @@ class LevelEditor{
       var totalCrosses = this.crosses.length;
       var totalWalls = this.walls.length;
       var levelData = [];
+
+      // basic error mssgs
       if (!totalBoxes) {
         return "Must add atleast one box to the level."
       }
@@ -349,7 +351,8 @@ class LevelEditor{
       if (!totalWalls || totalWalls < 12) {
         return "Must add atleast 12 walls to the level.";
       }
-      //can be new function
+
+      //get least and max values of the walls
       var wallLeastPosX = this.walls[0].positionX
       var wallLeastPosY = this.walls[0].positionY
       var wallMaxPosX = this.walls[0].positionX
@@ -360,7 +363,8 @@ class LevelEditor{
         if (value.positionX > wallMaxPosX) wallMaxPosX = value.positionX;
         if (value.positionY > wallMaxPosY) wallMaxPosY = value.positionY;
       })
-      // can be new function
+
+      // check if level data is valid
       for(var i = wallLeastPosY; i<=wallMaxPosY; i+=40){
         levelData.push("");
         for(var j = wallLeastPosX; j<=wallMaxPosX; j+=40){
