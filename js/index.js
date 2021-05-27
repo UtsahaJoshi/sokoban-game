@@ -29,10 +29,11 @@ var resizeScreen = () => {
   canvas.width = width;
 }
 
-requestAnimationFrame(drawCanvas);
+
 
 // create and immediately invoke event listeners
 var eventListeners = (() => {
+  window.addEventListener("load", () => {requestAnimationFrame(drawCanvas)});
   window.addEventListener("resize", resizeScreen);
   window.addEventListener("keydown", (e) => {
     if (level && !level.paused && !level.levelComplete && level.levelCount !== 14){
