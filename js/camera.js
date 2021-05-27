@@ -3,7 +3,6 @@ class Camera {
     this.level = map
     this.camPosXOffset = 0;
     this.camPosYOffset = 0;
-    console.l
     if (this.level.player) {
       this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
       this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);

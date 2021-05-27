@@ -46,7 +46,6 @@ var eventListeners = (() => {
     }
     if (level){
       pauseClicked(e);
-      console.log(level.paused);
       pauseMenuSelection(e);
       startingPos = [e.pageX, e.pageY]
       if (level.levelCount === 14 && !level.paused) {
