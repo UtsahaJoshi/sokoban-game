@@ -271,6 +271,9 @@ class LevelEditor{
     }
 
     placeObject = (e) => {
+      if (this.paused) {
+        return;
+      }
       var mousePos = [e.pageX, e.pageY];
       var posX =  Math.floor(-(this.camera.xDrag+150)/40  + mousePos[0]/40) * 40;
       var posY = Math.floor(-this.camera.yDrag/40 + mousePos[1]/40) * 40;

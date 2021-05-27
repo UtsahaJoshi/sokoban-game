@@ -45,16 +45,17 @@ var eventListeners = (() => {
       mainMenu.menuSelection(e);
     }
     if (level){
+      pauseClicked(e);
+      console.log(level.paused);
+      pauseMenuSelection(e);
       startingPos = [e.pageX, e.pageY]
-      if (level.levelCount === 14) {
+      if (level.levelCount === 14 && !level.paused) {
         if (startingPos[0]>150) {
           level.placeObject(e);
         }
         level.editorMenuSelection(e);
       }
       isDragging = true;
-      pauseClicked(e);
-      pauseMenuSelection(e);
     }
   });
   
