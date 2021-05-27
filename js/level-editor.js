@@ -233,8 +233,6 @@ class LevelEditor{
         return;
       }
       var gameObjects = {walls: this.walls, tiles: this.tiles, boxes: this.boxes, crosses: this.crosses, player: this.player};
-      // var solver = new Solver(gameObjects);
-      // solver.beginSolution();
 
       var myData = {
         0: levelData
