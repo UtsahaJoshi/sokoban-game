@@ -232,7 +232,6 @@ class LevelEditor{
         this.getError(levelData);
         return;
       }
-      var gameObjects = {walls: this.walls, tiles: this.tiles, boxes: this.boxes, crosses: this.crosses, player: this.player};
 
       var myData = {
         0: levelData
