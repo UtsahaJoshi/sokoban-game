@@ -48,7 +48,7 @@ var eventListeners = (() => {
       pauseClicked(e);
       pauseMenuSelection(e);
       startingPos = [e.pageX, e.pageY]
-      if (level.levelCount === 14 && !level.paused) {
+      if (level && level.levelCount === 14 && !level.paused) {
         if (startingPos[0]>150) {
           level.placeObject(e);
         }

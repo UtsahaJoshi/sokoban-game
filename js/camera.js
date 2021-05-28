@@ -22,23 +22,26 @@ class Camera {
     this.camPosY = - this.yDrag + this.newSceneY;
     var lastOffsetX = this.camPosXOffset;
     var lastOffsetY = this.camPosYOffset;
+
     if (this.level.player){
       this.camPosXOffset = Math.floor(this.level.player.positionX / canvas.width);
       this.camPosYOffset = Math.floor(this.level.player.positionY / canvas.height);
     }
-    if (lastOffsetX !== this.camPosXOffset){
-      if (lastOffsetX < this.camPosXOffset){
-        this.changeScene = "right"
-      } else {
-        this.changeScene = "left";
-      }
+
+    this.changeSceneDirection(lastOffsetX, lastOffsetY);
+  }
+
+  changeSceneDirection = (lastOffsetX, lastOffsetY) => {
+    var offsetXNotEqual = lastOffsetX !== this.camPosXOffset;
+    var offsetXLessThan = lastOffsetX < this.camPosXOffset;
+    var offsetYNotEqual = lastOffsetY !== this.camPosYOffset;
+    var offsetYLessThan = lastOffsetY < this.camPosYOffset;
+
+    if (offsetXNotEqual){
+      this.changeScene = (offsetXLessThan) ? "right" : "left";
     }
-    if (lastOffsetY !== this.camPosYOffset){
-      if (lastOffsetY < this.camPosYOffset){
-        this.changeScene = "down"
-      } else {
-        this.changeScene = "up";
-      }
+    if (offsetYNotEqual){
+      this.changeScene = (offsetYLessThan) ? "down" : "up";
     }
   }
 
@@ -62,38 +65,48 @@ class Camera {
         this.isSnapping = false;
       }
     }
-  
-    if (this.changeScene === "right"){
-      if (this.newSceneX < this.camPosXOffset * canvas.width){
-        this.newSceneX += 25;
-      } else {
-        this.newSceneX = this.camPosXOffset * canvas.width
-        this.changeScene = null
-      }
-    }
-    if (this.changeScene === "left"){
-      if (this.camPosX > this.camPosXOffset * canvas.width){
-        this.newSceneX -= 25;
-      } else {
-        this.newSceneX = this.camPosXOffset * canvas.width
-        this.changeScene = null
-      }
-    }
-    if (this.changeScene === "down"){
-      if (this.camPosY < this.camPosYOffset * canvas.height){
-        this.newSceneY += 25;
-      } else {
-        this.newSceneY = this.camPosYOffset * canvas.height;
-        this.changeScene = null
-      }
-    }
-    if (this.changeScene === "up"){
-      if (this.camPosY > this.camPosYOffset * canvas.height){
-        this.newSceneY -= 25;
-      } else {
-        this.newSceneY = this.camPosYOffset * canvas.height
-        this.changeScene = null
-      }
+
+    this.snapCameraToScene();
+  }
+
+  snapCameraToScene = () => {
+    const SNAPPING_SPEED = 25;
+    var newSceneX = this.camPosXOffset * canvas.width;
+    var newSceneY = this.camPosYOffset * canvas.height;
+
+    switch (this.changeScene) {
+      case "right":
+        if (this.newSceneX < newSceneX){
+          this.newSceneX += SNAPPING_SPEED;
+        } else {
+          this.newSceneX = newSceneX;
+          this.changeScene = null
+        }
+        break;
+      case "left":
+        if (this.camPosX > newSceneX){
+          this.newSceneX -= SNAPPING_SPEED;
+        } else {
+          this.newSceneX = newSceneX;
+          this.changeScene = null
+        }
+        break;
+      case "down":
+        if (this.camPosY < newSceneY){
+          this.newSceneY += SNAPPING_SPEED;
+        } else {
+          this.newSceneY = newSceneY;
+          this.changeScene = null
+        }
+        break;
+      case "up":
+        if (this.camPosY > newSceneY){
+          this.newSceneY -= SNAPPING_SPEED;
+        } else {
+          this.newSceneY = newSceneY;
+          this.changeScene = null
+        }
+        break;
     }
   }
 }
