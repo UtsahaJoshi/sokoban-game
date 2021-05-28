@@ -341,7 +341,7 @@ class LevelEditor{
     }
 
     //basic error mssgs
-    basicErrorMsgs = () => {
+    basicErrorMsgs = (totalBoxes, totalCrosses, totalWalls) => {
       if (!totalBoxes) {
         return "Must add atleast one box to the level."
       }
