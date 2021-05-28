@@ -38,10 +38,10 @@ class Camera {
     var offsetYLessThan = lastOffsetY < this.camPosYOffset;
 
     if (offsetXNotEqual){
-      this.changeScene = (offsetXLessThan) ? "right" : "left";
+      this.changeScene = (offsetXLessThan) ? RIGHT : LEFT;
     }
     if (offsetYNotEqual){
-      this.changeScene = (offsetYLessThan) ? "down" : "up";
+      this.changeScene = (offsetYLessThan) ? DOWN : UP;
     }
   }
 
@@ -75,7 +75,7 @@ class Camera {
     var newSceneY = this.camPosYOffset * canvas.height;
 
     switch (this.changeScene) {
-      case "right":
+      case RIGHT:
         if (this.newSceneX < newSceneX){
           this.newSceneX += SNAPPING_SPEED;
         } else {
@@ -83,7 +83,7 @@ class Camera {
           this.changeScene = null
         }
         break;
-      case "left":
+      case LEFT:
         if (this.camPosX > newSceneX){
           this.newSceneX -= SNAPPING_SPEED;
         } else {
@@ -91,7 +91,7 @@ class Camera {
           this.changeScene = null
         }
         break;
-      case "down":
+      case DOWN:
         if (this.camPosY < newSceneY){
           this.newSceneY += SNAPPING_SPEED;
         } else {
@@ -99,7 +99,7 @@ class Camera {
           this.changeScene = null
         }
         break;
-      case "up":
+      case UP:
         if (this.camPosY > newSceneY){
           this.newSceneY -= SNAPPING_SPEED;
         } else {

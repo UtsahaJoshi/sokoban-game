@@ -38,114 +38,123 @@ class Player {
       this.currentLoopIndex = 0
     }
     switch (this.direction) {
-      case "right":
+      case RIGHT:
         this.player = document.getElementById("player-right-" + CYCLE_LOOP[this.currentLoopIndex]);
         break;
-      case "left":
+      case LEFT:
         this.player = document.getElementById("player-left-" + CYCLE_LOOP[this.currentLoopIndex]);
         break;
-      case "down":
+      case DOWN:
         this.player = document.getElementById("player-down-" + CYCLE_LOOP[this.currentLoopIndex]);
         break;
-      case "up":
+      case UP:
         this.player = document.getElementById("player-up-"  + CYCLE_LOOP[this.currentLoopIndex]);
         break;
     }
   }
 
   keepMoving = () => {
-    if (this.newPosition.x !== this.positionX ||  this.newPosition.y !== this.positionY){
+    const SPEED = 5;
+    var isRight = this.positionX < this.newPosition.x;
+    var isLeft = this.positionX > this.newPosition.x;
+    var isDown = this.positionY < this.newPosition.y;
+    var isUp = this.positionY > this.newPosition.y;
+    var isNotEqualToX = this.newPosition.x !== this.positionX;
+    var isNotEqualToY = this.newPosition.y !== this.positionY;
+
+    if (isNotEqualToX ||  isNotEqualToY){
       this.isMoving = true;
     } else {
       this.isMoving = false;
     }
-    if(this.positionX < this.newPosition.x) {
-      this.positionX += 5;
+    if(isRight) {
+      this.positionX += SPEED;
     }
-    if(this.positionX > this.newPosition.x) {
-      this.positionX -= 5;
+    if(isLeft) {
+      this.positionX -= SPEED;
     }
-    if(this.positionY < this.newPosition.y) {
-      this.positionY += 5;
+    if(isDown) {
+      this.positionY += SPEED;
     }
-    if(this.positionY > this.newPosition.y) {
-      this.positionY -= 5;
+    if(isUp) {
+      this.positionY -= SPEED;
     }
   }
 
   movePlayer = (move) => {
-    if (this.direction !== move){
-      if (this.direction === "right") {
-        this.newPosition. x = Math.ceil(this.positionX/40) * 40
-      }
-      if (this.direction === "left") {
-        this.newPosition. x = Math.floor(this.positionX/40) * 40
-      }
-      if (this.direction === "down") {
-        this.newPosition.y = Math.ceil(this.positionY/40) * 40
-      }
-      if (this.direction === "up") {
-        this.newPosition.y = Math.floor(this.positionY/40) * 40
-      }
-    }
-
-    if (Math.abs(this.positionX - this.newPosition.x) < this.sizeX && Math.abs(this.positionY - this.newPosition.y) < this.sizeY){
+    const TYPE = "movePlayer"
+    this.keepPlayerInGrid(move);
+    var positionDiffX = Math.abs(this.positionX - this.newPosition.x);
+    var positionDiffY = Math.abs(this.positionY - this.newPosition.y);
+    
+    if (positionDiffX < this.sizeX && positionDiffY < this.sizeY){
       this.direction = move;
-      switch (move) {
-        case "right":
-          this.newPosition = {
-            x: this.newPosition.x + this.sizeX,
-            y: this.newPosition.y
-          }
-          break;
-          case "left":
-            this.newPosition = {
-              x: this.newPosition.x - this.sizeX,
-              y: this.newPosition.y
-            }
-            break;
-          case "up":
-            this.newPosition = {
-              x: this.newPosition.x,
-              y: this.newPosition.y - this.sizeY
-            }
-            break;
-          case "down":
-            this.newPosition = {
-              x: this.newPosition.x,
-              y: this.newPosition.y + this.sizeY
-            }
-            break;
-      }
+      this.directionCaseWisePositionComputation(this.direction, TYPE);
       this.canMovePlayer(this.direction);
     }
   }
-  collisionCorrection = (direction) => {
-    if (direction === "right"){
-      this.newPosition = {
-        x: this.newPosition.x - this.sizeX,
-        y: this.newPosition.y
+
+  keepPlayerInGrid = (move) =>{
+    if (this.direction !== move){
+      if (this.direction === RIGHT) {
+        this.newPosition. x = Math.ceil(this.positionX/40) * 40
       }
-    }
-    if (direction === "left"){
-      this.newPosition = {
-        x: this.newPosition.x + this.sizeX,
-        y: this.newPosition.y
+      if (this.direction === LEFT) {
+        this.newPosition. x = Math.floor(this.positionX/40) * 40
       }
-    }
-    if (direction === "up"){
-      this.newPosition = {
-        x: this.newPosition.x,
-        y: this.newPosition.y + this.sizeY
+      if (this.direction === DOWN) {
+        this.newPosition.y = Math.ceil(this.positionY/40) * 40
       }
-    }
-    if (direction === "down"){
-      this.newPosition = {
-        x: this.newPosition.x,
-        y: this.newPosition.y - this.sizeY
+      if (this.direction === UP) {
+        this.newPosition.y = Math.floor(this.positionY/40) * 40
       }
     }
   }
+  collisionCorrection = (direction) => {
+    const TYPE = "collisionCorrection";
+    this.directionCaseWisePositionComputation(direction, TYPE);
+  }
+
+  directionCaseWisePositionComputation = (switchVar, type) => {
+    var incrementOrDecrement;
+    var sizeX = 0;
+    var sizeY = 0;
+    switch (switchVar) {
+      case RIGHT:
+        sizeX = 40;
+        incrementOrDecrement = 1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = -1;
+        }
+        break;
+      case LEFT:
+        sizeX = 40;
+        incrementOrDecrement = -1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = 1;
+        }
+        break;
+      case UP:
+        sizeY = 40;
+        incrementOrDecrement = -1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = 1;
+        }
+        break;
+      case DOWN:
+        sizeY = 40;
+        incrementOrDecrement = 1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = -1;
+        }
+        break;
+    }
+    this.newPosition = {
+      x: this.newPosition.x + (incrementOrDecrement * sizeX),
+      y: this.newPosition.y + (incrementOrDecrement * sizeY)
+    }
+  }
+  
   canMovePlayer = (direction) => {
     if (level.levelCount === 13){
       level.ponds.forEach((pond) => {

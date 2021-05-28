@@ -94,28 +94,28 @@ class Box {
     var sizeX = 0;
     var sizeY = 0;
     switch (switchVar) {
-      case "right":
+      case RIGHT:
         sizeX = 40;
         incrementOrDecrement = 1;
         if (type === "collisionCorrection") {
           incrementOrDecrement = -1;
         }
         break;
-      case "left":
+      case LEFT:
         sizeX = 40;
         incrementOrDecrement = -1;
         if (type === "collisionCorrection") {
           incrementOrDecrement = 1;
         }
         break;
-      case "up":
+      case UP:
         sizeY = 40;
         incrementOrDecrement = -1;
         if (type === "collisionCorrection") {
           incrementOrDecrement = 1;
         }
         break;
-      case "down":
+      case DOWN:
         sizeY = 40;
         incrementOrDecrement = 1;
         if (type === "collisionCorrection") {

@@ -1,6 +1,11 @@
-logo = document.getElementById("logo");
-face = document.getElementById("face");
-audio = true;
+var logo = document.getElementById("logo");
+var face = document.getElementById("face");
+var audio = true;
+
+const RIGHT = "right";
+const LEFT = "left";
+const UP = "up";
+const DOWN = "down";
 
 // a function to create level objects in story, level and level editor
 createLevelObjects = (levelObject, levelData, gameObjects) => {
@@ -160,16 +165,16 @@ playerControl = (event) => {
     var direction;
     switch(key){
       case "ArrowRight":
-        direction = "right";
+        direction = RIGHT;
         break;
       case "ArrowLeft":
-        direction = "left";
+        direction = LEFT;
         break;
       case "ArrowUp":
-        direction = "up";
+        direction = UP;
         break;
       case "ArrowDown":
-        direction = "down";
+        direction = DOWN;
         break;
       case "Space":
         if (level.levelCount === 13) {
@@ -336,7 +341,7 @@ pauseMenuSelection = (e) => {
     } else {
       level.menuSelection[0][0] = 0;
     }
-    // Save
+    // Save // REStart
     if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 390 && mousePos[1] < 430 ){
       level.menuSelection[0][1] = 1;
       if (e.type == "mousedown"){
@@ -345,7 +350,7 @@ pauseMenuSelection = (e) => {
         if (level.levelCount === 13) {
           var data = JSON.stringify([level.levelConvo, level.missionStart, level.storyBegins, level.player.positionX, level.player.positionY]);
           saveData("storymode", data) 
-        } else if (level.levelCount > 0 && level.levelCount <= 12) {
+        } else if (level.levelCount > 0 && level.levelCount <= 12 || !level.levelCount) {
           resetGameObjects(level.gameObjects);
           getAndMakePlayer(level);
           createLevelObjects(level, level.level, level.gameObjects);
