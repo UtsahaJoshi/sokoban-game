@@ -451,17 +451,17 @@ pauseMenuSelection = (e) => {
           level = story;
           level.missionStart = false;
           if (level.levelConvo === 0) {
-            level.conversationDialogues[3] = ["All done!", "Thank you Sokoban my house was a mess!", "My pleasure!", "See you around. Have a nice day!"];
+            conversationDialogues[3] = ["All done!", "Thank you Sokoban my house was a mess!", "My pleasure!", "See you around. Have a nice day!"];
             level.levelOrder[0] = "EVA1";
           }
           if (level.levelConvo === 2) {
-            level.conversationDialogues[5] = ["Here's your key, Jake!", "Thanks! Sokoban! Have you met Bob?", "Not yet!", "Go see him. such a nice bloke!", "Sure! G'day!"];
+            conversationDialogues[5] = ["Here's your key, Jake!", "Thanks! Sokoban! Have you met Bob?", "Not yet!", "Go see him. such a nice bloke!", "Sure! G'day!"];
           }
           if (level.levelConvo === 4) {
-            level.conversationDialogues[7] = ["All complete! Do rate my services.", "I'll give you a 5 star if you don't tell Bob where I am!", "Haha! I got your back. Peace!", "Don't tell Kumar either. He is Bob's good friend.", "Telling nobody!"];
+            conversationDialogues[7] = ["All complete! Do rate my services.", "I'll give you a 5 star if you don't tell Bob where I am!", "Haha! I got your back. Peace!", "Don't tell Kumar either. He is Bob's good friend.", "Telling nobody!"];
           }
           if (level.levelConvo === 6) {
-            level.conversationDialogues[9] = ["Complete! I need some rest.", "Thanks and don't forget to come to the party tonight!", "Where is it?", "Go meet Eva by the pond. She will tell you.", "On my way.", "Thanks again!"];
+            conversationDialogues[9] = ["Complete! I need some rest.", "Thanks and don't forget to come to the party tonight!", "Where is it?", "Go meet Eva by the pond. She will tell you.", "On my way.", "Thanks again!"];
           }
           level.levelConvo += 2;
           return;
