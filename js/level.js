@@ -30,6 +30,7 @@ class Level{
     this.menuSelection = [[0, 0, 0, 0],[0,0,0]]
   }
 
+  // draw level
   drawLevel = () => {
     var pause = document.getElementById("pause");
     ctx.clearRect(0, 0, width, height);
@@ -54,6 +55,7 @@ class Level{
     }
   }
 
+  // check if level is complete
   checkForLevelComplete = () => {
     var totalSolved = 0;
     this.boxes.forEach((value)=>{
@@ -70,6 +72,7 @@ class Level{
       }
   }
 
+  // draw all level objects
   drawLevelObjects = () => {
     this.tiles.forEach((value)=>{
       value.drawTile(this.levelCanvasCtx);

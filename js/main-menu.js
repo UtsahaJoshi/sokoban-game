@@ -6,6 +6,8 @@ class MainMenu{
     this.bgAudio = document.getElementById("bg-music");
     this.bgAudio.loop = true;
   }
+
+  // draw menu
   drawMenu = () => {
     if (!level){
       var logo = document.getElementById("logo");
@@ -135,8 +137,8 @@ class MainMenu{
     }
   }
 
+  // main menu selection
   menuSelection = (e) => {
-
     //how to play
     var mousePos = [e.pageX, e.pageY];
     if (this.menuPage === 4 && !level){

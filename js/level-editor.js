@@ -32,7 +32,7 @@ class LevelEditor{
     this.canMoveCamera = false;
     this.errorStatement = null;
     }
-
+    // draw level editor
     drawLevel = () => {
       var pause = document.getElementById("pause");
       this.levelCanvasCtx.clearRect(0, 0, 2000, 2000);
@@ -63,6 +63,7 @@ class LevelEditor{
       }
     }
 
+    //draw editor tool side bar
     drawEditorTools = () => {
       this.canMoveCamera = false;
       if (this.editorSelection[4][1]) this.canMoveCamera = true;
@@ -81,6 +82,7 @@ class LevelEditor{
       })
     }
 
+    //draw objects inside the level editor
     drawLevelObjects = () => {
       this.crosses.forEach((value)=>{
         value.drawCross(this.levelCanvasCtx);
@@ -96,6 +98,7 @@ class LevelEditor{
       })
     }
 
+    // show error mssg
     getError = (levelData) => {
       if (!this.errorStatement) {
         this.errorStatement = levelData;
@@ -105,6 +108,8 @@ class LevelEditor{
         }, 1000);
       }
     }
+
+    // side bar editor tool selection 
     editorMenuSelection = (e) => {
       var mousePos = [e.pageX, e.pageY];
         // wall
@@ -201,6 +206,8 @@ class LevelEditor{
         }
 
     }
+
+    // file reader
     onReaderLoad = (event) =>{
       var levelData = JSON.parse(event.target.result);
       var gameObjects = {walls: this.walls, boxes: this.boxes, crosses: this.crosses, player: this.player};
@@ -215,6 +222,7 @@ class LevelEditor{
       this.fileInput.value = "";
     }
 
+    // import file
     importLevelData = () => {
       this.fileInput.type = 'file';
       this.fileInput.onchange = e => { 
@@ -226,6 +234,7 @@ class LevelEditor{
       this.fileInput.click();
     }
 
+    // export file
     exportLevelData = async () => {
       var levelData = this.getLevelData();
       if (!Array.isArray(levelData)) {
@@ -248,6 +257,7 @@ class LevelEditor{
       document.body.removeChild(link);
     }
 
+    // check if object can be put in position
     canPutObject = (posX, posY, exception) => {
       var hasAlreadyOccupied = false;
       var allObjects = [this.crosses, this.walls, this.boxes];
@@ -267,6 +277,7 @@ class LevelEditor{
       return !hasAlreadyOccupied;
     }
 
+    // place object at click position
     placeObject = (e) => {
       if (this.paused) {
         return;
@@ -328,14 +339,9 @@ class LevelEditor{
         }
       }
     }
-    
-    getLevelData = () => {
-      var totalBoxes = this.boxes.length;
-      var totalCrosses = this.crosses.length;
-      var totalWalls = this.walls.length;
-      var levelData = [];
 
-      // basic error mssgs
+    //basic error mssgs
+    basicErrorMsgs = () => {
       if (!totalBoxes) {
         return "Must add atleast one box to the level."
       }
@@ -348,6 +354,16 @@ class LevelEditor{
       if (!totalWalls || totalWalls < 12) {
         return "Must add atleast 12 walls to the level.";
       }
+    }
+
+    // get level data in json format from the level editor
+    getLevelData = () => {
+      var totalBoxes = this.boxes.length;
+      var totalCrosses = this.crosses.length;
+      var totalWalls = this.walls.length;
+      var levelData = [];
+
+      this.basicErrorMsgs(totalBoxes, totalCrosses, totalWalls);
 
       //get least and max values of the walls
       var wallLeastPosX = this.walls[0].positionX

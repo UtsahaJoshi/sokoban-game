@@ -9,18 +9,18 @@ const DOWN = "down";
 
 // a function to create level objects in story, level and level editor
 createLevelObjects = (levelObject, levelData, gameObjects) => {
-  var storyMode = levelObject.levelCount === 13;
-  var levelEditor = levelObject.levelCount === 14;
-  if (levelEditor) {
+  const STORY_MODE = levelObject.levelCount === 13;
+  const LEVEL_EDITOR = levelObject.levelCount === 14;
+  if (LEVEL_EDITOR) {
     levelData = levelData[0];
   }
   for(var i = 0; i < levelData.length; i++){
     for(var j = 0; j < levelData[i].length; j++){
-      var positionX = j * 40;
-      var positionY =  i * 40;
       var sizeX = 40;
       var sizeY = 40;
-      if (!levelEditor && !storyMode) {
+      var positionX = j * sizeX;
+      var positionY =  i * sizeY;
+      if (!LEVEL_EDITOR && !STORY_MODE) {
         gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
       }
       switch(levelData[i][j]){
@@ -31,7 +31,7 @@ createLevelObjects = (levelObject, levelData, gameObjects) => {
           gameObjects.boxes.push(new Box(gameObjects.boxes.length, positionX, positionY, sizeX, sizeY));
           break;
         case "@":
-          if (storyMode){
+          if (STORY_MODE){
             gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
           }
           levelObject.player = new Player(positionX, positionY, sizeX, sizeY);
@@ -114,12 +114,12 @@ createLevelObjects = (levelObject, levelData, gameObjects) => {
           gameObjects.humans.push(new Human(gameObjects.humans.length, "soldier", positionX, positionY, sizeX, sizeY))
           break;
         case " ":
-          if (storyMode) {
+          if (STORY_MODE) {
             gameObjects.paths.push(new NoneColliders(gameObjects.paths.length, "path", positionX, positionY, sizeX, sizeY));
           }
           break;
         case "=":
-          if (storyMode) {
+          if (STORY_MODE) {
             gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
           }
           break;
@@ -142,6 +142,9 @@ getAndMakePlayer = (levelObject) => {
         case "@":
           levelObject.player = new Player(positionX, positionY, sizeX, sizeY);
           break;
+        case "$":
+          levelObject.player = new Player(positionX, positionY, sizeX, sizeY);
+          break;
       }
     }
   }
@@ -149,12 +152,9 @@ getAndMakePlayer = (levelObject) => {
 
 //reset the gameObjects
 resetGameObjects = (gameObjects) => {
+  level.player = null;
  Object.entries(gameObjects).forEach((value) => {
-   if (value[0] === "player"){
-    gameObjects[value[0]] = null
-   } else {
     gameObjects[value[0]].length = 0;
-   }
  })
 }
 
@@ -299,6 +299,9 @@ menuContent = () => {
     if (level.levelCount === 13) {
       menuOptionRestartOrSave = "SAVE";
     }
+    if (levelEditor) {
+      menuOptionRestartOrSave = "GO BACK";
+    }
     if (level.menuSelection[0][1] == 1){
       canvas.style.cursor = "pointer";
       ctx.fillText(menuOptionRestartOrSave, canvas.width/2, 420);
@@ -321,19 +324,28 @@ menuContent = () => {
   }
 }
 
+// pause game
 pauseClicked = (e) => {
   if (e.pageX > width - 120 && e.pageX < width - 20 && e.pageY > 10 && e.pageY < 110){
     level.paused = true;
   }
 }
+
+// pause button hover
 pauseHover = (e) => {
   level.pauseHovered = false;
   if (e.pageX > width - 120 && e.pageX < width - 20 && e.pageY > 10 && e.pageY < 110){
     level.pauseHovered = true;
   }
 }
+
+// select option in pause menu
 pauseMenuSelection = (e) => {
   var mousePos = [e.pageX, e.pageY];
+  const STORY_MODE = level.levelCount === 13;
+  const LEVEL_MODE = level.levelCount > 0 && level.levelCount <= 12;
+  const LEVEL_EDITOR = level.levelCount === 14;
+
   if (level.paused){
     // Resume
     if (mousePos[0]>canvas.width/2 - 150 && mousePos[0] < canvas.width/2 + 150 && mousePos[1] > 290 && mousePos[1] < 330 ){
@@ -351,17 +363,24 @@ pauseMenuSelection = (e) => {
       if (e.type == "mousedown"){
         level.paused = false;
         level.menuSelection[0][1] = 0;
-        if (level.levelCount === 13) {
+        if (STORY_MODE) {
           var data = JSON.stringify([level.levelConvo, level.missionStart, level.storyBegins, level.player.positionX, level.player.positionY]);
           saveData("storymode", data) 
-        } else if (level.levelCount > 0 && level.levelCount <= 12 || !level.levelCount) {
+        } else if (LEVEL_MODE) {
           resetGameObjects(level.gameObjects);
           getAndMakePlayer(level);
           createLevelObjects(level, level.level, level.gameObjects);
         } else {
+          if (!LEVEL_EDITOR){
+            level.menuSelection[1][1] = 0;
+            level = levelEditor;
+            levelEditor = null;
+            return;
+          }
+          level.editorSelection = [[0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]];
+          level.playerImg = level.playerImgBackup;
           resetGameObjects(level.gameObjects);
         }
-        level.paused = false;
       }
     } else {
       level.menuSelection[0][1] = 0;
@@ -415,12 +434,6 @@ pauseMenuSelection = (e) => {
       level.menuSelection[1][1] = 1;
       if (e.type == "mousedown"){
         level.menuSelection[1][1] = 0;
-        if (levelEditor) {
-          level.menuSelection[1][1] = 0;
-          level = levelEditor;
-          levelEditor = null;
-          return;
-        }
         if (story) {
           if (story.levelConvo === 8) {
             level.menuSelection[1][1] = 0;

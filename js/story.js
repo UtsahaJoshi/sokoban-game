@@ -37,6 +37,11 @@ class Story{
     this.levelConvo = 0;
     this.missionStart = false;
     this.storySaveData = JSON.parse(getSavedData("storymode"));
+    this.updateAccordingToSavedData();
+  }
+
+  //update variables according to the saved data
+  updateAccordingToSavedData = () => {
     if (this.storySaveData) {
       this.storyBegins = this.storySaveData[2];
       if (!this.storyBegins) this.conversation = false;
@@ -54,6 +59,7 @@ class Story{
     }
   }
 
+  //get dialogues for conversation
   getDialogue = () => {
     ctx.fillStyle = 'rgba(0,0,0,0.7)';
     ctx.font = "10px Soko";
@@ -87,6 +93,7 @@ class Story{
     }
   }
 
+  // draw the level
   drawLevel = () => {
     this.drawLevelObjects();
     ctx.drawImage(this.levelCanvas, this.player.positionX - canvas.width/2.1, this.player.positionY - canvas.height/2.5, width, height, 0, 0, width, height);
@@ -105,6 +112,7 @@ class Story{
     }
   }
 
+  //draw all level objects
   drawLevelObjects = () => {
     this.tiles.forEach((value)=>{
       if (Math.abs(this.player.positionX - value.positionX) < canvas.width/1.8 && Math.abs(this.player.positionY - value.positionY) < canvas.height/1.6) {

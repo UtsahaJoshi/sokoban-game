@@ -15,13 +15,14 @@ class Player {
     this.frameCount = 0;
     this.currentLoopIndex = 0;
   }
-
+  // draw player on screen
   drawPlayer= (canvasCtx) => {
     this.keepMoving();
     this.getPlayerImage();
     canvasCtx.drawImage(this.player, this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 
+  // get animation image per frame
   getPlayerImage(){
     const FRAME_LIMIT = 10;
     const CYCLE_LOOP = [1, 2, 1, 3];
@@ -52,7 +53,7 @@ class Player {
         break;
     }
   }
-
+  // keep moving the player if conditions met
   keepMoving = () => {
     const SPEED = 5;
     var isRight = this.positionX < this.newPosition.x;
@@ -81,6 +82,7 @@ class Player {
     }
   }
 
+  // move player on key down
   movePlayer = (move) => {
     if (!move) {
       return;
@@ -96,6 +98,7 @@ class Player {
     }
   }
 
+  // if player direction change and player is moving, adjust the player according to the grid
   keepPlayerInGrid = (move) =>{
     if (this.direction !== move){
       if (this.direction === RIGHT) {
@@ -112,11 +115,13 @@ class Player {
       }
     }
   }
+
+  // correct position on collision
   collisionCorrection = (direction) => {
     const TYPE = "collisionCorrection";
     this.directionCaseWisePositionComputation(direction, TYPE);
   }
-
+  // compute position of the player
   directionCaseWisePositionComputation = (switchVar, type) => {
     var incrementOrDecrement;
     var sizeX = 0;
@@ -157,6 +162,7 @@ class Player {
     }
   }
   
+  // check if player can move
   canMovePlayer = (direction) => {
     if (level.levelCount === 13){
       level.ponds.forEach((pond) => {

@@ -13,16 +13,12 @@ class NoneColliders{
     this.path = document.getElementById("path");
   }
   drawStuff = (canvasCtx) => {
-    var stuff;
-    if (this.type === "berries"){
-      stuff = this.berries;
-    } else if (this.type === "mushroom") {
-      stuff = this.mushroom;
-    } else if (this.type === "flowers"){
-      stuff = this.flowers;
-    } else {
-      stuff = this.path;
-    }
-    canvasCtx.drawImage(stuff, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    var stuff = {
+      "berries": this.berries,
+      "mushroom": this.mushroom,
+      "flowers": this.flowers,
+      "path": this.path
+    };
+    canvasCtx.drawImage(stuff[this.type], this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
