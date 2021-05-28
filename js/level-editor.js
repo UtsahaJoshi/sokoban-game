@@ -301,14 +301,12 @@ class LevelEditor{
       if (this.editorSelection[1][1]){
         if (this.canPutObject(posX, posY, true)) {
           this.boxes.push(new Box(this.boxes.length, posX, posY, sizeX, sizeY));
-          console.log("box", posX, posY)
         }
       }
       // make cross
       if (this.editorSelection[2][1]){
         if (this.canPutObject(posX, posY)){
           this.crosses.push(new Cross(this.crosses.length, posX, posY, sizeX, sizeY));
-          console.log("cross", posX, posY)
         }
       }
       // make player

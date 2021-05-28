@@ -157,10 +157,12 @@ getAndMakePlayer = (levelObject) => {
 
 //reset the gameObjects
 resetGameObjects = (gameObjects) => {
-  level.player = null;
  Object.entries(gameObjects).forEach((value) => {
+   if (gameObjects[value[0]]) {
     gameObjects[value[0]].length = 0;
+   }
  })
+ level.player = null;
 }
 
 // player control for all modes
