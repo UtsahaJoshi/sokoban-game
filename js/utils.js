@@ -9,7 +9,9 @@ const DOWN = "down";
 
 // a function to create level objects in story, level and level editor
 createLevelObjects = (levelObject, levelData, gameObjects) => {
-  if (levelObject.levelCount === 14) {
+  var storyMode = levelObject.levelCount === 13;
+  var levelEditor = levelObject.levelCount === 14;
+  if (levelEditor) {
     levelData = levelData[0];
   }
   for(var i = 0; i < levelData.length; i++){
@@ -18,7 +20,7 @@ createLevelObjects = (levelObject, levelData, gameObjects) => {
       var positionY =  i * 40;
       var sizeX = 40;
       var sizeY = 40;
-      if (levelObject.levelCount !== 14 && levelObject.levelCount !== 13) {
+      if (!levelEditor && !storyMode) {
         gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
       }
       switch(levelData[i][j]){
@@ -29,7 +31,7 @@ createLevelObjects = (levelObject, levelData, gameObjects) => {
           gameObjects.boxes.push(new Box(gameObjects.boxes.length, positionX, positionY, sizeX, sizeY));
           break;
         case "@":
-          if (levelObject.levelCount === 13){
+          if (storyMode){
             gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
           }
           levelObject.player = new Player(positionX, positionY, sizeX, sizeY);
@@ -112,10 +114,12 @@ createLevelObjects = (levelObject, levelData, gameObjects) => {
           gameObjects.humans.push(new Human(gameObjects.humans.length, "soldier", positionX, positionY, sizeX, sizeY))
           break;
         case " ":
-          gameObjects.paths.push(new NoneColliders(gameObjects.paths.length, "path", positionX, positionY, sizeX, sizeY));
+          if (storyMode) {
+            gameObjects.paths.push(new NoneColliders(gameObjects.paths.length, "path", positionX, positionY, sizeX, sizeY));
+          }
           break;
         case "=":
-          if (levelObject.levelCount === 13) {
+          if (storyMode) {
             gameObjects.tiles.push(new Tile(gameObjects.tiles.length, positionX, positionY, sizeX, sizeY));
           }
           break;

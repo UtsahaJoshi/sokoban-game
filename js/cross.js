@@ -10,9 +10,9 @@ class Cross {
   }
   drawCross = (canvasCtx) => {
     var cross = this.cross;
-    var playerIsSteppingOnCross = (this.positionX === level.player.positionX && this.positionY === level.player.positionY);
-    
-    if (level.player && playerIsSteppingOnCross){
+    var playerIsSteppingOnCross = (level.player && this.positionX === level.player.positionX && this.positionY === level.player.positionY);
+
+    if (playerIsSteppingOnCross){
       cross = this.crossStepped;
     }
     canvasCtx.drawImage(cross, this.positionX, this.positionY, this.sizeX, this.sizeY);

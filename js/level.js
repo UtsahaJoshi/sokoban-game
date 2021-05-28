@@ -20,6 +20,7 @@ class Level{
     this.player;
 
     getAndMakePlayer(this);
+
     this.gameObjects = {walls: this.walls, tiles: this.tiles, boxes: this.boxes, crosses: this.crosses, player: this.player};
     createLevelObjects(this, this.level, this.gameObjects);
     this.camera = new Camera(this);
