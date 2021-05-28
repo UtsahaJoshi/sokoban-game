@@ -23,7 +23,6 @@ class Level{
 
     this.gameObjects = {walls: this.walls, tiles: this.tiles, boxes: this.boxes, crosses: this.crosses, player: this.player};
     createLevelObjects(this, this.level, this.gameObjects);
-    console.log(this.boxes)
     this.camera = new Camera(this);
     this.exit = false; // for quitting
     this.paused = false;
