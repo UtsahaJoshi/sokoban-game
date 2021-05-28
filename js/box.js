@@ -18,15 +18,12 @@ class Box {
 
   drawBox = (canvasCtx) => { 
     var crate = this.box;
-    if (level.player) {
-      if (level.player.direction !== this.isPush) {
-        this.isPush = null;
-      } else {
-        this.canMoveBox(this.direction);
-      }
+    if (level.player && level.player.direction !== this.isPush) {
+      this.isPush = null;
+    } else if (level.player){
+      this.canMoveBox(this.direction);
     }
     this.keepPushing();
-
     this.checkForSolvedBox();
     if (this.solved){
       crate = this.solvedBox;
@@ -35,110 +32,41 @@ class Box {
   }
 
   keepPushing = () =>{
-    if(this.positionX < this.newPosition.x) {
-      this.positionX += 5.0;
+    var isRight = this.positionX < this.newPosition.x;
+    var isLeft = this.positionX > this.newPosition.x;
+    var isDown = this.positionY < this.newPosition.y;
+    var isUp = this.positionY > this.newPosition.y;
+    const SPEED = 5;
+    if(isRight) {
+      this.positionX += SPEED;
     }
-    if(this.positionX > this.newPosition.x) {
-      this.positionX -= 5.0;
+    if(isLeft) {
+      this.positionX -= SPEED;
     }
-    if(this.positionY < this.newPosition.y) {
-      this.positionY += 5.0;
+    if(isDown) {
+      this.positionY += SPEED;
     }
-    if(this.positionY > this.newPosition.y) {
-      this.positionY -= 5.0;
+    if(isUp) {
+      this.positionY -= SPEED;
     }
   }
 
   moveBox = (move) => {
     this.direction = move;
-      switch (move) {
-        case "right":
-          this.newPosition = {
-            x: this.newPosition.x + this.sizeX,
-            y: this.newPosition.y
-          }
-          break;
-          case "left":
-            this.newPosition = {
-              x: this.newPosition.x - this.sizeX,
-              y: this.newPosition.y
-            }
-            break;
-          case "up":
-            this.newPosition = {
-              x: this.newPosition.x,
-              y: this.newPosition.y - this.sizeY
-            }
-            break;
-          case "down":
-            this.newPosition = {
-              x: this.newPosition.x,
-              y: this.newPosition.y + this.sizeY
-            }
-            break;
-      }
-      this.canMoveBox(this.direction);
+    const TYPE = "moveBox";
+    this.directionCaseWisePositionComputation(this.direction, false, TYPE);
+    this.canMoveBox(this.direction);
   }
 
   collisionCorrection = (direction) => {
-    if (direction === "right"){
-      this.newPosition = {
-        x: this.newPosition.x - this.sizeX,
-        y: this.newPosition.y
-      }
-      level.player.newPosition = {
-        x: level.player.newPosition.x - level.player.sizeX,
-        y: level.player.newPosition.y
-      }
-    }
-    if (direction === "left"){
-      this.newPosition = {
-        x: this.newPosition.x + this.sizeX,
-        y: this.newPosition.y
-      }
-      level.player.newPosition = {
-        x: level.player.newPosition.x + level.player.sizeX,
-        y: level.player.newPosition.y
-      }
-    }
-    if (direction === "up"){
-      this.newPosition = {
-        x: this.newPosition.x,
-        y: this.newPosition.y + this.sizeY
-      }
-      level.player.newPosition = {
-        x: level.player.newPosition.x,
-        y: level.player.newPosition.y + level.player.sizeY
-      }
-    }
-    if (direction === "down"){
-      this.newPosition = {
-        x: this.newPosition.x,
-        y: this.newPosition.y - this.sizeY
-      }
-      level.player.newPosition = {
-        x: level.player.newPosition.x,
-        y: level.player.newPosition.y - level.player.sizeY
-      }
-    }
+    const TYPE = "collisionCorrection";
+    this.directionCaseWisePositionComputation(direction, true, TYPE);
   }
+
   canMoveBox = (direction) => {
-    if (this.isPush == "right"){
-      this.newPosition.x = level.player.newPosition.x + 40
-      this.newPosition.y = level.player.newPosition.y
-    }
-    if (this.isPush == "left"){
-      this.newPosition.x = level.player.newPosition.x - 40
-      this.newPosition.y = level.player.newPosition.y
-    }
-    if (this.isPush == "up"){
-      this.newPosition.x = level.player.newPosition.x
-      this.newPosition.y = level.player.newPosition.y - 40
-    }
-    if (this.isPush == "down"){
-      this.newPosition.x = level.player.newPosition.x
-      this.newPosition.y = level.player.newPosition.y + 40
-    }
+    const TYPE = "canMove";
+    this.directionCaseWisePositionComputation(this.isPush, false, TYPE);
+
     level.boxes.forEach((secondBox) => {
       if (secondBox.positionX === this.newPosition.x && secondBox.positionY === this.newPosition.y && secondBox.id !== this.id){
         this.collisionCorrection(direction);
@@ -161,4 +89,56 @@ class Box {
     })
   }
 
+  directionCaseWisePositionComputation = (switchVar, shouldChangePlayerPos, type) => {
+    var incrementOrDecrement;
+    var sizeX = 0;
+    var sizeY = 0;
+    switch (switchVar) {
+      case "right":
+        sizeX = 40;
+        incrementOrDecrement = 1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = -1;
+        }
+        break;
+      case "left":
+        sizeX = 40;
+        incrementOrDecrement = -1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = 1;
+        }
+        break;
+      case "up":
+        sizeY = 40;
+        incrementOrDecrement = -1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = 1;
+        }
+        break;
+      case "down":
+        sizeY = 40;
+        incrementOrDecrement = 1;
+        if (type === "collisionCorrection") {
+          incrementOrDecrement = -1;
+        }
+        break;
+    }
+    if (type !== "canMove") {
+      this.newPosition = {
+        x: this.newPosition.x + (incrementOrDecrement * sizeX),
+        y: this.newPosition.y + (incrementOrDecrement * sizeY)
+      }
+    } else {
+      this.newPosition = {
+        x: level.player.newPosition.x + (incrementOrDecrement * sizeX),
+        y: level.player.newPosition.y + (incrementOrDecrement * sizeY)
+      }
+    }
+    if (shouldChangePlayerPos) {
+      level.player.newPosition = {
+        x: level.player.newPosition.x + (incrementOrDecrement * sizeX),
+        y: level.player.newPosition.y + (incrementOrDecrement * sizeY),
+      }
+    }
+  }
 }

@@ -21,6 +21,6 @@ class Tree {
         size * 7, size * 4
       ]
     };
-    canvasCtx.drawImage(tree[this.type][0], this.positionX, this.positionY, tree[this.type][1], three[this.type][2]);
+    canvasCtx.drawImage(tree[this.type][0], this.positionX, this.positionY, tree[this.type][1], tree[this.type][2]);
   }
 }

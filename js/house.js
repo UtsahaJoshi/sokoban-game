@@ -11,14 +11,11 @@ class House {
     this.houseGreen = document.getElementById("house-green");
   }
   drawHouse = (canvasCtx) => {
-    var houseImage;
-    if (this.type === "red"){
-      houseImage = this.houseRed;
-    } else if (this.type === "blue") {
-      houseImage = this.houseBlue;
-    } else {
-      houseImage = this.houseGreen;
-    }
-    canvasCtx.drawImage(houseImage, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    var houseImage = {
+      "red": this.houseRed,
+      "blue": this.houseBlue,
+      "green": this.houseGreen
+    };
+    canvasCtx.drawImage(houseImage[this.type], this.positionX, this.positionY, this.sizeX, this.sizeY);
   }
 }
