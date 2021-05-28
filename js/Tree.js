@@ -10,16 +10,17 @@ class Tree {
     this.groupedTree = document.getElementById("trees");
   }
   drawTree = (canvasCtx) => {
-    var tree;
-    if (this.type === "single"){
-      tree = this.singleTree;
-      this.sizeX = 120;
-      this.sizeY = 120;
-    } else {
-      tree = this.groupedTree;
-      this.sizeX = 280;
-      this.sizeY = 160;
-    }
-    canvasCtx.drawImage(tree, this.positionX, this.positionY, this.sizeX, this.sizeY);
+    var size = 40;
+    var tree = {
+      "single" : [
+        this.singleTree,
+        size * 3, size * 3
+      ],
+      "group" : [
+        this.groupedTree,
+        size * 7, size * 4
+      ]
+    };
+    canvasCtx.drawImage(tree[this.type][0], this.positionX, this.positionY, tree[this.type][1], three[this.type][2]);
   }
 }
