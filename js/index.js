@@ -1,3 +1,4 @@
+// initialize canvas and other necessary variables
 var canvas = document.getElementById("main-canvas");
 var ctx = canvas.getContext("2d");
 var height = window.innerHeight;
@@ -29,8 +30,6 @@ var resizeScreen = () => {
   canvas.width = width;
 }
 
-
-
 // create and immediately invoke event listeners
 var eventListeners = (() => {
   window.addEventListener("load", () => {requestAnimationFrame(drawCanvas)});
@@ -45,10 +44,11 @@ var eventListeners = (() => {
       mainMenu.menuSelection(e);
     }
     if (level){
+      var levelEditor = (level.levelCount === 14);
       pauseClicked(e);
       pauseMenuSelection(e);
       startingPos = [e.pageX, e.pageY]
-      if (level && level.levelCount === 14 && !level.paused) {
+      if (level && levelEditor && !level.paused) {
         if (startingPos[0]>150) {
           level.placeObject(e);
         }
@@ -69,12 +69,14 @@ var eventListeners = (() => {
       mainMenu.menuSelection(e);
     }
     if (level) {
+      var storyMode = (level.levelCount === 13);
+      var levelEditor = (level.levelCount === 14);
       pauseHover(e);
       pauseMenuSelection(e);
-      if(level.levelCount !== 13) {
+      if(!storyMode) {
         seeMap(e);
       }
-      if (level.levelCount === 14) {
+      if (levelEditor) {
         if (!isDragging) level.editorMenuSelection(e);
         if (startingPos[0]>150 && isDragging) level.placeObject(e);
       }

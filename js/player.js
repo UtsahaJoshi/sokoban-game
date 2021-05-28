@@ -82,11 +82,13 @@ class Player {
   }
 
   movePlayer = (move) => {
+    if (!move) {
+      return;
+    }
     const TYPE = "movePlayer"
     this.keepPlayerInGrid(move);
     var positionDiffX = Math.abs(this.positionX - this.newPosition.x);
     var positionDiffY = Math.abs(this.positionY - this.newPosition.y);
-    
     if (positionDiffX < this.sizeX && positionDiffY < this.sizeY){
       this.direction = move;
       this.directionCaseWisePositionComputation(this.direction, TYPE);
