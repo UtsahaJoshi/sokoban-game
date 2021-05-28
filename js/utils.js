@@ -7,6 +7,11 @@ const LEFT = "left";
 const UP = "up";
 const DOWN = "down";
 
+var wallLeastPosX;
+var wallLeastPosY;
+var wallMaxPosX;
+var wallMaxPosY;
+
 // a function to create level objects in story, level and level editor
 createLevelObjects = (levelObject, levelData, gameObjects) => {
   const STORY_MODE = levelObject.levelCount === 13;

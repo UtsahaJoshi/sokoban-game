@@ -277,7 +277,7 @@ class LevelEditor{
       return !hasAlreadyOccupied;
     }
 
-    // place object at click position
+    //place object
     placeObject = (e) => {
       if (this.paused) {
         return;
@@ -294,18 +294,21 @@ class LevelEditor{
       if (this.editorSelection[0][1]){
         if (this.canPutObject(posX, posY)){
           this.walls.push(new Wall(this.walls.length, posX, posY, sizeX, sizeY));
+          
         }
       }
       // make box
       if (this.editorSelection[1][1]){
         if (this.canPutObject(posX, posY, true)) {
           this.boxes.push(new Box(this.boxes.length, posX, posY, sizeX, sizeY));
+          console.log("box", posX, posY)
         }
       }
       // make cross
       if (this.editorSelection[2][1]){
         if (this.canPutObject(posX, posY)){
           this.crosses.push(new Cross(this.crosses.length, posX, posY, sizeX, sizeY));
+          console.log("cross", posX, posY)
         }
       }
       // make player
@@ -340,8 +343,13 @@ class LevelEditor{
       }
     }
 
-    //basic error mssgs
-    basicErrorMsgs = (totalBoxes, totalCrosses, totalWalls) => {
+    getLevelData = () => {
+      var totalBoxes = this.boxes.length;
+      var totalCrosses = this.crosses.length;
+      var totalWalls = this.walls.length;
+      var levelData = [];
+      var errorMsg = null;
+
       if (!totalBoxes) {
         return "Must add atleast one box to the level."
       }
@@ -354,22 +362,12 @@ class LevelEditor{
       if (!totalWalls || totalWalls < 12) {
         return "Must add atleast 12 walls to the level.";
       }
-    }
-
-    // get level data in json format from the level editor
-    getLevelData = () => {
-      var totalBoxes = this.boxes.length;
-      var totalCrosses = this.crosses.length;
-      var totalWalls = this.walls.length;
-      var levelData = [];
-
-      this.basicErrorMsgs(totalBoxes, totalCrosses, totalWalls);
 
       //get least and max values of the walls
-      var wallLeastPosX = this.walls[0].positionX
-      var wallLeastPosY = this.walls[0].positionY
-      var wallMaxPosX = this.walls[0].positionX
-      var wallMaxPosY = this.walls[0].positionY
+      wallLeastPosX = this.walls[0].positionX;
+      wallLeastPosY = this.walls[0].positionY;
+      wallMaxPosX = this.walls[0].positionX;
+      wallMaxPosY = this.walls[0].positionY;
       this.walls.forEach((value) => {
         if (value.positionX < wallLeastPosX) wallLeastPosX = value.positionX;
         if (value.positionY < wallLeastPosY) wallLeastPosY = value.positionY;
@@ -390,8 +388,8 @@ class LevelEditor{
           })
           this.boxes.forEach((value) => {
             //check for out of bounds
-            if (value.posX < wallLeastPosX || value.posX > wallMaxPosY || value.posY < wallLeastPosY || value.posY > wallMaxPosY) {
-              return "Box is out of bounds.";
+            if (value.positionX < wallLeastPosX || value.positionX > wallMaxPosX || value.positionY < wallLeastPosY || value.positionY > wallMaxPosY) {
+              errorMsg = "Box is out of bounds";
             }
             //convert to json txt
             if (value.positionX === j && value.positionY === i) {
@@ -399,10 +397,13 @@ class LevelEditor{
               hasAddedChar = true;
             }
           })
+          if (errorMsg) {
+            return errorMsg;
+          }
           this.crosses.forEach((value) => {
             //check for out of bounds
-            if (value.posX < wallLeastPosX || value.posX > wallMaxPosY || value.posY < wallLeastPosY || value.posY > wallMaxPosY) {
-              return "Box goal is out of bounds.";
+            if (value.positionX < wallLeastPosX || value.positionX > wallMaxPosX || value.positionY < wallLeastPosY || value.positionY > wallMaxPosY) {
+              errorMsg = "Cross is out of bounds";
             }
             //convert to json txt
             if (value.positionX === j && value.positionY === i) {
@@ -414,6 +415,9 @@ class LevelEditor{
               hasAddedChar = true;
             }
           })
+          if (errorMsg) {
+            return errorMsg;
+          }
           if (!this.player) {
             return "Player not added."
           }
