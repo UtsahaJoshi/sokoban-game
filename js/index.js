@@ -81,3 +81,20 @@ var eventListeners = (() => {
     }
   });
 })();
+
+// Function that adds html tags
+const appendTag = (parentSelector, tag, attrs, innerText) => {
+    const parentElem = document.querySelector(parentSelector);
+    let elem = document.createElement(tag);
+    if ( attrs ) {
+        attrs.forEach( (attr) => {
+            for (key in attr) {
+                elem.setAttribute(key, attr[key]);
+            };
+        });
+    }
+    if (innerText) {
+        elem.innerText = innerText;
+    };
+    parentElem.appendChild(elem);
+}
