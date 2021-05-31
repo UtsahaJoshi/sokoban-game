@@ -176,9 +176,15 @@ class Player {
         }
       })
       level.trees.forEach((tree) => {
-        if ((this.newPosition.x > tree.positionX ) && (this.newPosition.x < tree.positionX + 2 * tree.sizeX) && (this.newPosition.y > tree.positionY + tree.sizeY) && (this.newPosition.y < tree.positionY + 3 * tree.sizeY) ){
-          this.collisionCorrection(direction);
-        }
+        if (tree.type === "single") {
+          if ((this.newPosition.x > tree.positionX) && (this.newPosition.x < tree.positionX + 2 * tree.sizeX) && (this.newPosition.y > tree.positionY + tree.sizeY) && (this.newPosition.y < tree.positionY + 3 * tree.sizeY) ){
+           this.collisionCorrection(direction);
+           }
+         } else {
+          if ((this.newPosition.x > tree.positionX - tree.sizeX) && (this.newPosition.x < tree.positionX + 6 * tree.sizeX) && (this.newPosition.y > tree.positionY + tree.sizeY) && (this.newPosition.y < tree.positionY + 4 * tree.sizeY) ){
+            this.collisionCorrection(direction);
+            }
+         }
       })
       level.humans.forEach((human) => {
         if ((this.newPosition.x === human.positionX) && (this.newPosition.y === human.positionY)){
