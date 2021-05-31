@@ -176,7 +176,7 @@ class Player {
         }
       })
       level.trees.forEach((tree) => {
-        if ((this.newPosition.x + this.sizeX > tree.positionX) && (this.newPosition.x < tree.positionX + tree.sizeX) && (this.newPosition.y > tree.positionY + tree.sizeY/2) && (this.newPosition.y < tree.positionY + tree.sizeY - this.sizeY/2) ){
+        if ((this.newPosition.x > tree.positionX ) && (this.newPosition.x < tree.positionX + 2 * tree.sizeX) && (this.newPosition.y > tree.positionY + tree.sizeY) && (this.newPosition.y < tree.positionY + 3 * tree.sizeY) ){
           this.collisionCorrection(direction);
         }
       })
